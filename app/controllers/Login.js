@@ -12,7 +12,7 @@ module.exports = BaseController.extend({
 	authorize: function(req, res, self) {
 		if (req.session && req.session.yourhelpinghand 
 			&& req.session.yourhelpinghand === true) {
-			res.redirect('/profile')
+			res.redirect('/profile/' + req.session.username)
 		} else if (req.method === 'POST' && req.body.username && req.body.password) {
 			model.getLgCredentials(function (err, data) {
 				if (err) {
@@ -20,8 +20,9 @@ module.exports = BaseController.extend({
 				}
 				if (data.length != 0) {
 					req.session.yourhelpinghand = true
+					req.session.username = req.body.username
 					req.session.save()
-					res.redirect('/profile')
+					res.redirect('/profile/' + req.body.username)
 				} else {
 					self.renderLogin(true, res, self)
 				}

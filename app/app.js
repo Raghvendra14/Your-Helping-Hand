@@ -9,6 +9,7 @@ var express = require('express'),
 	Login = require('./controllers/Login')
 	Register = require('./controllers/Register')
 	Profile = require('./controllers/Profile')
+	Logout = require('./controllers/Logout')
 
 app.set('views', __dirname + '/templates/html')
 app.set('view engine', 'hjs')
@@ -30,7 +31,7 @@ mongo.connect(url, function (err, db) {
 			req.db = db
 			next()
 		}
-		app.all('/', attachDB, function (req, res, next) {
+		app.all('/', function (req, res, next) {
 			Home.run(req, res, next)
 		})
 		app.all('/login', attachDB, function (req, res, next) {
@@ -39,8 +40,11 @@ mongo.connect(url, function (err, db) {
 		app.all('/register', attachDB, function (req, res, next) {
 			Register.run(req, res, next)
 		})
-		app.all('/profile', attachDB, function (req, res, next) {
+		app.all('/profile/:id', attachDB, function (req, res, next) {
 			Profile.run(req, res, next)
+		})
+		app.get('/logout', function (req, res, next) {
+			Logout.run(req, res, next)
 		})
 		app.listen(3000, function() {
 			console.log(

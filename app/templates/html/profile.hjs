@@ -67,10 +67,10 @@
           </a>
         </div>
         <div class="pull-right" style="color: white;">
-          <h4><span class="glyphicon glyphicon-user"></span> My Username</h4>
+          <h4><span class="glyphicon glyphicon-user"></span>{{username}}</h4>
         </div>
         <div class="pull-right" style="color: white; margin-right: 5%; padding:10px">
-          <a href="#"><h6><span class="glyphicon glyphicon-log-out"></span> Logout</h6></a>
+          <a href="/logout"><h6><span class="glyphicon glyphicon-log-out"></span> Logout</h6></a>
         </div>  
       </div>
     </nav>
@@ -83,16 +83,17 @@
           <div class="text-center">
             <!--User pic --> <!--User Profile picture and User name -->
             <img class="img-responsive rounded mx-auto d-block img-thumbnail img-circle" src="../img/blank-square-800x800.png" alt="" style="width: 150px; height: 150px"> 
-            <h4 class="card-title">full name</h4>
+            <h4 class="card-title">{{fullname}}</h4>
           </div> 
           <hr>
           <h5 class="card-title">Address</h5>
           <!-- Display the address deltails of user. Address details contain the location, pin code phone number -->
-          <p class="card-text">This portion shows the address details and phn number</p>
-
+          <p class="card-text">{{address}}</p>
+          <p class="card-text">{{pincode}}</p>
+          <p class="card-text">Contact Number: {{phnumber}}</p>
           <h5 class="card-title">E-mail</h5>
           <!-- Display the address deltails of user. Address details contain the location, pin code  -->
-          <p class="card-text">This portion shows the email-id</p>
+          <p class="card-text">{{email}}</p>
         </div>
         <div class="card-header float-left">
           <!-- in case of editing the details, the updated details will be displayed-->
@@ -180,7 +181,10 @@
                                 </h5>
                                 <!-- the user address will appear hear -->
                                 <p class="card-text"> 
-                                  User Address 
+                                  {{address}} 
+                                </p>
+                                <p class="card-text"> 
+                                  {{pincode}} 
                                 </p>
                               </div>
                             </div>

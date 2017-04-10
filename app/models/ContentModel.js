@@ -14,6 +14,9 @@ module.exports = model.extend({
 	getLgCredentials: function(callback, query) {
 		this.lg_cred_collection().find(query).toArray(callback)
 	},
+	getUserDetails: function(callback, query) {
+		this.user_detail_collection().find(query).toArray(callback)
+	},
 	checkUsernameAvailability: function(callback, query, project) {
 		this.user_detail_collection().find(query).project(project).toArray(callback)
 	},

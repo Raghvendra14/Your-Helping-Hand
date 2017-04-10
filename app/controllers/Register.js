@@ -55,8 +55,9 @@ module.exports = BaseController.extend({
 						} else {
 							console.log(objects.insertedCount + " User Credential inserted.")
 							req.session.yourhelpinghand = true
+							req.session.username = req.body.username
 							req.session.save()
-							res.redirect('/profile')
+							res.redirect('/profile/' + req.body.username)
 						}
 					})
 				}
