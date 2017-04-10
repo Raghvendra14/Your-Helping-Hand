@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Profile</title>
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/jquery.datetimepicker.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#datetimepicker").datetimepicker();
+        }) 
+
+      $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').focus()
+      })
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.9.0/validator.min.js"></script>
+
+        <style type="text/css">
+          .navbar {
+            color: white;
+            background-color: #7B68EE;
+            border-color: #7B68EE;
+            margin-bottom: 0;
+          }
+          .jumbotron{
+            margin-top: 0;
+          }
+       
+          .navbar .navbar-brand{
+            color: #fff;
+          }
+          .top-buffer{
+            margin: 20px 20px 20px 20px ;
+          }
+          .center-block{
+            float: none;
+          }
+        </style>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">
+            <span class="glyphicon glyphicon-home"> YOUR HELPING HAND</span>
+          </a>
+        </div>
+        <div class="pull-right" style="color: white;">
+          <h4><span class="glyphicon glyphicon-user"></span> My Username</h4>
+        </div>
+        <div class="pull-right" style="color: white; margin-right: 5%; padding:10px">
+          <a href="#"><h6><span class="glyphicon glyphicon-log-out"></span> Logout</h6></a>
+        </div>  
+      </div>
+    </nav>
+    <div class="container" style="margin-top: 2%; margin-bottom: 2%;">
+      <div class="card">
+        <div class="card-header float-left">
+          My Details
+        </div>
+        <div class="card-block">
+          <div class="text-center">
+            <!--User pic --> <!--User Profile picture and User name -->
+            <img class="img-responsive rounded mx-auto d-block img-thumbnail img-circle" src="../img/blank-square-800x800.png" alt="" style="width: 150px; height: 150px"> 
+            <h4 class="card-title">full name</h4>
+          </div> 
+          <hr>
+          <h5 class="card-title">Address</h5>
+          <!-- Display the address deltails of user. Address details contain the location, pin code phone number -->
+          <p class="card-text">This portion shows the address details and phn number</p>
+
+          <h5 class="card-title">E-mail</h5>
+          <!-- Display the address deltails of user. Address details contain the location, pin code  -->
+          <p class="card-text">This portion shows the email-id</p>
+        </div>
+        <div class="card-header float-left">
+          <!-- in case of editing the details, the updated details will be displayed-->
+          <a href="#CollapseEdit" data-toggle="collapse" aria-expanded="false" aria-controls="CollapseEdit">Edit</a> 
+        </div>
+        <div class="collapse" id="CollapseEdit">
+          <div class="container center-block">
+            <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                <div class="panel">
+                  <div class="panel-heading">
+                    <div class="row text-center">
+                      <h3>EDIT <span class="glyphicon glyphicon-pencil"></span></h3>
+                    </div>
+                    <hr>
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-lg-12 col-xs-12">
+                        <form action="" method="post" role="form" style="display: block;">
+                          <div class="form-group has-feedback">
+                            <input type="text" pattern="[A-Za-z0-9'\.\-\s\,]" name="address" id="address" tabindex="1" class="form-control" placeholder="address" value="" required>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            <div class="help-block with-errors"></div>
+                          </div>
+                          <div class="form-group">
+                            <input type="number" name="pincode" id="pincode" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="6" maxlength="6" class="form-control" placeholder="pincode" value="" data-error="Invalid Pincode!" required>
+                            <div class="help-block with-errors"></div>
+                          </div>
+                          <div class="form-group">
+                            <input type="number" name="phnumber" id="phnumber" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="10" maxlength="10" class="form-control" placeholder="phone number" value="" data-error="Invalid Phone Number!" required>
+                            <div class="help-block with-errors"></div>
+                          </div>
+                          <div class="form-group">
+                             <div class="row">
+                              <div class="col-sm-6 col-sm-offset-3">
+                                <input type="submit" name="edit-submit" id="edit-submit" tabindex="4" class="form-control btn btn-primary" value="Edit">
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> 
+        </div>
+        <div class="card-header float-left">
+          <a href="#CollapseSchedule" data-toggle="collapse" aria-expanded="false" aria-controls="CollapseSchedule">Schedule appointment</a> 
+        </div>
+        <div class="collapse" id="CollapseSchedule">
+          <div class="card-block">
+            <div class="container center-block">
+              <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                  <div class="panel">
+                    <div class="panel-heading">
+                      <div class="row text-center">
+                        <h3><span class="glyphicon glyphicon-calendar"></span> SCHEDULE APPOINTMENT</h3>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-lg-12 col-xs-12">
+                          <form action="" method="post" role="form" style="display: block;">
+                            <div class="form-group">
+                              <select class="form-control selectpicker">
+                                <option data-hidden="true">---Choose Service---</option>
+                                <option>Electrician</option>
+                                <option>Plumber</option>
+                                <option>House maid</option>
+                                <option>Repair</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <input type="text" id="datetimepicker" name="calender" class="form-control" placeholder="DATE TIME">  
+                            </div>
+                            <div class="card">
+                              <div class="card-block">
+                                <h5 class="card-title">
+                                  Address 
+                                </h5>
+                                <!-- the user address will appear hear -->
+                                <p class="card-text"> 
+                                  User Address 
+                                </p>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <textarea class="form-control" placeholder="Description of the issue"></textarea>
+                            </div>
+                            <div class="form-group">
+                              <div class="row">
+                                <div class="col-sm-6 col-sm-offset-4">
+                                  <!-- Button trigger modal -->
+                                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                                    Schedule
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    Are you sure?
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                    <button type="button" class="btn btn-primary">Yes</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FOOTER -->
+    <nav class="navbar fixed-bottom navbar-light bg-faded">
+      <a class="navbar-brand" href="#">Copyright 2017</a>
+    </nav>
+  </body>
+</html>

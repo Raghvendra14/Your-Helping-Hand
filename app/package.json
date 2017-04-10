@@ -1,0 +1,18 @@
+{
+  "name": "your-helping-hand",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raghvendra Srivastava",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.15.2",
+    "hjs": "0.0.6",
+    "mongodb": "2.2.25",
+    "underscore": "^1.8.3"
+  }
+}
