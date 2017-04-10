@@ -7,6 +7,7 @@ var express = require('express'),
 	url = 'mongodb://localhost:27017/yourhelpinghand',
 	Home = require('./controllers/Home')
 	Login = require('./controllers/Login')
+	Register = require('./controllers/Register')
 	Profile = require('./controllers/Profile')
 
 app.set('views', __dirname + '/templates/html')
@@ -34,6 +35,9 @@ mongo.connect(url, function (err, db) {
 		})
 		app.all('/login', attachDB, function (req, res, next) {
 			Login.run(req, res, next)
+		})
+		app.all('/register', attachDB, function (req, res, next) {
+			Register.run(req, res, next)
 		})
 		app.all('/profile', attachDB, function (req, res, next) {
 			Profile.run(req, res, next)

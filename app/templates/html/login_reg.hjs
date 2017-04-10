@@ -106,7 +106,7 @@
                       </div>
                     </div>
                   </form>
-                  <form data-toggle="validator" id="register-form" action="" method="post" role="form" style="display: none;">
+                  <form id="register-form" action="/register" method="post" role="form" style="display: none;">
                     <div class="form-group has-feedback">
                       <input type="text" name="username" pattern="^[_A-z0-9]{1,}$" maxlength="15" id="username" tabindex="1" class="form-control" placeholder="username" value="" required>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -118,7 +118,7 @@
                     </div>
                     
                     <div class="form-group">
-                      <input type="text" name="name" pattern="^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$" id="Name" tabindex="1" class="form-control" placeholder="full name" value="" required>
+                      <input type="text" name="fullname" pattern="^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$" id="Name" tabindex="1" class="form-control" placeholder="full name" value="" required>
                       <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group has-feedback">
@@ -135,12 +135,12 @@
                       <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group has-feedback">
-                      <input type="password" name="Password" data-minlength="6" id="inputPassword" tabindex="1" class="form-control" placeholder="password" value="" required>
+                      <input type="password" name="password" data-minlength="6" id="inputPassword" tabindex="1" class="form-control" placeholder="password" value="" required>
                       <span class="glyphicon form-control-feedback"></span>
                       <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group has-feedback">
-                      <input type="password" name="confirm-password" id="confirm-password" tabindex="1" class="form-control" placeholder="confirm password" value="" data-match="#inputPassword" data-match-error="Whoops, these don't match" required>
+                      <input type="password" name="confirm_password" id="confirm-password" tabindex="1" class="form-control" placeholder="confirm password" value="" data-match="#inputPassword" data-match-error="Whoops, these don't match" required>
                       <span class="glyphicon form-control-feedback"></span>
                       <div class="help-block with-errors"></div>
                     </div>

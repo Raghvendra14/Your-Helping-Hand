@@ -17,5 +17,9 @@ module.exports.prototype = {
 	lg_cred_collection: function() {
 		if (this._collection) return this._collection
 		return this._collection = this.db.collection('login_credentials')
+	},
+	user_detail_collection: function() {
+		if (this._userCollection) return this._userCollection
+		return this._userCollection = this.db.collection('user_details')
 	}
 }
