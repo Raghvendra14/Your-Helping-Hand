@@ -10,7 +10,8 @@
   "author": "Raghvendra Srivastava",
   "license": "ISC",
   "dependencies": {
-    "express": "4.15.2",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
     "hjs": "0.0.6",
     "mongodb": "2.2.25",
     "underscore": "^1.8.3"
