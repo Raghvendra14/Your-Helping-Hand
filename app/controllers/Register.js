@@ -82,16 +82,16 @@ module.exports = BaseController.extend({
 		var v = new View(res, 'login_reg');
 		self.content = {}
 		if (isUsernameAlreadyTaken && isEmailAlreadyTaken) {
-			self.content.usernameTaken = "Username already taken."
-			self.content.emailTaken = "Email id already taken."
+			self.content.usernameTaken = "Username already taken"
+			self.content.emailTaken = "Email Id already taken"
 			self.content.retry = ""
 		} else if (isUsernameAlreadyTaken) {
-			self.content.usernameTaken = "Username already taken."
+			self.content.usernameTaken = "Username already taken"
 			self.content.emailTaken = ""
 			self.content.retry = ""
 		} else if (isEmailAlreadyTaken) {
 			self.content.usernameTaken = ""
-			self.content.emailTaken = "Email id already taken."
+			self.content.emailTaken = "Email Id already taken"
 			self.content.retry = ""
 		} else {
 			self.content.usernameTaken = ""

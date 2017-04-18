@@ -80,10 +80,14 @@
                       <input type="text" name="username" pattern="^[_A-z0-9]{1,}$" maxlength="15" id="username" tabindex="1" class="form-control" placeholder="username" value="" required>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <div class="help-block with-errors"></div>
+                      <!--error message like: "username already exist" -->
+                      <span><p>error message here</p></span>
                     </div>
                     <div class="form-group">
                       <input type="password" name="password" data-minlength="6" id="inputPassword" tabindex="1" class="form-control" placeholder="password" value="" required>
                       <div class="help-block with-errors"></div>
+                      <!--error message like: "username and password do not match" -->
+                      <span><p>error message here</p></span>
                     </div>
                     <div class="form-group text-center">
                       <input type="checkbox" tabindex="3" name="remember" id ="remember">
@@ -106,41 +110,55 @@
                       </div>
                     </div>
                   </form>
-                  <form id="register-form" action="/register" method="post" role="form" style="display: none;">
+                  <form data-toggle="validator" id="register-form" action="/register" method="post" role="form" style="display: none;">
+                    <!-- username -->
                     <div class="form-group has-feedback">
                       <input type="text" name="username" pattern="^[_A-z0-9]{1,}$" maxlength="15" id="username" tabindex="1" class="form-control" placeholder="username" value="" required>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <div class="help-block with-errors"></div>
+                      <!--error message like: "username already exists" -->
+                      <span><p>{{usernameTaken}}</p></span>
                     </div>
-                    <div class="form-group">
+                    <!-- email -->
+                    <div class="form-group has-feedback">
                       <input type="email" name="email" id="Email" tabindex="1" class="form-control" placeholder="email" value="" data-error="Email address is invalid" required>
-                      <div class="help-block with-errors"></div>
+                      <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                      <div class="help-block with-errors"><!--error message like: "email already exists" -->
+                      <span><p>{{emailTaken}}</p></span></div>
                     </div>
-                    
-                    <div class="form-group">
+                    <!-- full name -->
+                    <div class="form-group has-feedback">
                       <input type="text" name="fullname" pattern="^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$" id="Name" tabindex="1" class="form-control" placeholder="full name" value="" required>
+                      <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <div class="help-block with-errors"></div>
                     </div>
+                    <!-- address -->
                     <div class="form-group has-feedback">
                       <input type="text" pattern="^[a-zA-Z0-9\s,/-]*$" name="address" id="address" tabindex="1" class="form-control" placeholder="address" value="" required>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <div class="help-block with-errors"></div>
                     </div>
-                    <div class="form-group">
-                      <input type="text" name="pincode" id="pincode" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="6" maxlength="6" class="form-control" placeholder="pincode" value="" data-error="Invalid Pin code!" required>
-                      <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group">
-                      <input type="text" name="phnumber" id="phnumber" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="10" maxlength="10" class="form-control" placeholder="phone number" value="" data-error="Invalid Phone Number!" required>
-                      <div class="help-block with-errors"></div>
-                    </div>
+                    <!-- pincode -->
                     <div class="form-group has-feedback">
-                      <input type="password" name="password" data-minlength="6" id="inputPassword" tabindex="1" class="form-control" placeholder="password" value="" required>
+                      <input type="text" name="pincode" id="pincode" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="6" maxlength="6" class="form-control" placeholder="pincode" value="" data-error="Invalid Pin code!" required>
+                      <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <!-- phone no -->
+                    <div class="form-group has-feedback">
+                      <input type="text" name="phnumber" id="phnumber" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="10" maxlength="10" class="form-control" placeholder="phone number" value="" data-error="Invalid Phone Number!" required>
+                      <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <!-- password -->
+                    <div class="form-group has-feedback">
+                      <input type="password" name="password" data-minlength="6" id="password" tabindex="1" class="form-control" placeholder="password" value="" required>
                       <span class="glyphicon form-control-feedback"></span>
                       <div class="help-block with-errors"></div>
                     </div>
+                    <!-- confirm password -->
                     <div class="form-group has-feedback">
-                      <input type="password" name="confirm_password" id="confirm-password" tabindex="1" class="form-control" placeholder="confirm password" value="" data-match="#inputPassword" data-match-error="Whoops, these don't match" required>
+                      <input type="password" name="confirm_password" id="confirm-password" tabindex="1" class="form-control" placeholder="confirm password" value="" data-match="#password" data-match-error="Whoops!, password does not match." required>
                       <span class="glyphicon form-control-feedback"></span>
                       <div class="help-block with-errors"></div>
                     </div>
