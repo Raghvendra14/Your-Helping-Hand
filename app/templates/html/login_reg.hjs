@@ -6,11 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>LOGIN</title>
-
+    <link href="https://fonts.googleapis.com/css?family=Amita|Sahitya" rel="stylesheet">
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="../css/login-reg.css">
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
+      body{
+        font-family: 'Amita', cursive;
+        font-family: 'Sahitya', serif;
+      } 
       .navbar {
         background-color: #7B68EE;
         border-color: #7B68EE;
@@ -53,7 +57,7 @@
     <!--Jumbotron-->
     <div style="color: white; background: #7B68EE" class = "jumbotron">
       <div class="container text-center">
-        <h4>WE ARE HERE TO HELP</h4>
+        <h3>WE ARE HERE TO HELP</h3>
       </div>
     </div>
 
@@ -81,13 +85,13 @@
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <div class="help-block with-errors"></div>
                       <!--error message like: "username already exist" -->
-                      <span><p>{{incorrect_username}}</p></span>
+                      <span><p style="color: red;">{{incorrect_username}}</p></span>
                     </div>
                     <div class="form-group">
                       <input type="password" name="password" data-minlength="6" id="inputPassword" tabindex="1" class="form-control" placeholder="password" value="" required>
                       <div class="help-block with-errors"></div>
                       <!--error message like: "username and password do not match" -->
-                      <span><p>{{incorrect_password}}</p></span>
+                      <span><p style="color: red;">{{incorrect_password}}</p></span>
                     </div>
                     <div class="form-group text-center">
                       <input type="checkbox" tabindex="3" name="remember" id ="remember">
@@ -117,14 +121,14 @@
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <div class="help-block with-errors"></div>
                       <!--error message like: "username already exists" -->
-                      <span><p>{{usernameTaken}}</p></span>
+                      <span><p style="color: red;">{{usernameTaken}}</p></span>
                     </div>
                     <!-- email -->
                     <div class="form-group has-feedback">
                       <input type="email" name="email" id="Email" tabindex="1" class="form-control" placeholder="email" value="" data-error="Email address is invalid" required>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <div class="help-block with-errors"><!--error message like: "email already exists" -->
-                      <span><p>{{emailTaken}}</p></span></div>
+                      <span><p style="color: red;">{{emailTaken}}</p></span></div>
                     </div>
                     <!-- full name -->
                     <div class="form-group has-feedback">
