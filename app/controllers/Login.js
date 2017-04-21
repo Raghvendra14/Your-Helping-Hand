@@ -16,29 +16,48 @@ module.exports = BaseController.extend({
 		} else if (req.method === 'POST' && req.body.username && req.body.password) {
 			model.getLgCredentials(function (err, data) {
 				if (err) {
-					self.renderLogin(true, res, self)
+					self.renderLogin(false, false, res, self)
 				}
 				if (data.length != 0) {
-					req.session.yourhelpinghand = true
-					req.session.username = req.body.username
-					req.session.save()
-					res.redirect('/profile/' + req.body.username)
+					if (data[0].username === req.body.username && data[0].password === req.body.password) {
+						req.session.yourhelpinghand = true
+						req.session.username = req.body.username
+						req.session.save()
+						res.redirect('/profile/' + req.body.username)
+					} else if (data[0].username != req.body.username) {
+						self.renderLogin(true, false, res, self)
+					} else if (data[0].password != req.body.password) {
+						self.renderLogin(false, true, res, self)
+					}
+					
 				} else {
-					self.renderLogin(true, res, self)
+					self.renderLogin(true, true, res, self)
 				}
 			}, 
-			{	
-				username: req.body.username,
-				password: req.body.password 
+			{	$or: [
+				{
+					username: req.body.username
+				},
+				{
+					password: req.body.password
+				}]
 			})
 		} else {
-			self.renderLogin(false, res, self)
+			self.renderLogin(false, false, res, self)
 		}
 	},
-	renderLogin: function(incorrect_credenitials, res, self) {
+	renderLogin: function(incorrect_username_bool, incorrect_password_bool, res, self) {
 		var v = new View(res, 'login_reg');
 		self.content = null
-		if (incorrect_credenitials) {
+		if (incorrect_username_bool && !incorrect_password_bool) {
+			self.content = {}
+			self.content.incorrect_username = "Username is incorrect"
+			self.content.incorrect_password = ""
+		} else if (!incorrect_username_bool && incorrect_password_bool) {
+			self.content = {}
+			self.content.incorrect_username = ""
+			self.content.incorrect_password = "Password is incorrect"
+		} else if (incorrect_username_bool && incorrect_password_bool) {
 			self.content = {}
 			self.content.incorrect_username = "Username is incorrect"
 			self.content.incorrect_password = "Password is incorrect"

@@ -74,7 +74,8 @@
         </div>  
       </div>
     </nav>
-    <div class="container" style="margin-top: 2%; margin-bottom: 2%;">
+    <!--container-->
+    <div class="container" style="margin-top: 2%; margin-bottom: 12%;">
       <div class="card">
         <div class="card-header float-left">
           My Details
@@ -82,9 +83,12 @@
         <div class="card-block">
           <div class="text-center">
             <!--User pic --> <!--User Profile picture and User name -->
-            <img class="img-responsive rounded mx-auto d-block img-thumbnail img-circle" src="../img/blank-square-800x800.png" alt="" style="width: 150px; height: 150px"> 
-            <h4 class="card-title">{{fullname}}</h4>
+            <img class="img-responsive rounded mx-auto d-block img-thumbnail img-circle" src="../img/blank-square-800x800.png" alt="" style="width: 150px; height: 150px"> <br>
+            <label class="btn btn-default btn-file">
+              Browse <input type="file" hidden>
+            </label>
           </div> 
+          <h4 class="card-title">{{fullname}}</h4>
           <hr>
           <h5 class="card-title">Address</h5>
           <!-- Display the address deltails of user. Address details contain the location, pin code phone number -->
@@ -232,8 +236,12 @@
       </div>
     </div>
     <!-- FOOTER -->
-    <nav class="navbar fixed-bottom navbar-light bg-faded">
-      <a class="navbar-brand" href="#">Copyright 2017</a>
+    <nav style="background-color: black;" class="navbar navbar-fixed-bottom">
+      <div class="container">
+        <div style="color: white;" class="navbar-text pull-left">
+          <p>copyright YourHelpingHand 2017</p>
+        </div>  
+      </div>
     </nav>
   </body>
 </html>

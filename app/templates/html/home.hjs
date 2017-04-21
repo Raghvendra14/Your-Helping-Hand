@@ -76,7 +76,7 @@
     </div>
       
     <!-- services -->
-    <div class = "container">
+    <div class = "container" style="margin-bottom: 12%">
        <div class="row top-buffer">
         <div class="col-md-6">
           <div class="ih-item square colored effect7 center-block">
@@ -85,8 +85,14 @@
               <div class="info">
                 <h3>Electrician</h3>
                 <p>Need an electrician?</p>
-            </div>
+              </div>
             </a>
+          </div>
+          <div style="margin-top: 3%;" class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <p class="mb-0">Do you need a hand in installing and maintaining wiring, control equipment such as switches, relays, circuit breaker panels, and lighting systems? Your destination is here!</p>
+            <!-- Display message about availability of handyman -->
+            <p class="mb-0"><!--Display message here --><a href="/login" class="alert-link"> Schedule Appointment Now!</a></p>
           </div>
         </div>
         <div class="col-md-6">
@@ -96,12 +102,17 @@
               <div class="info">
                 <h3>plumber</h3>
                 <p>Need a plumber?</p>
-            </div>
+              </div>
             </a>
+          </div>
+          <div style="margin-top: 3%;" class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <p class="mb-0">Do you need a hand in repairing the water pipes, basins, sinks, toilets, baths, drains or guttering? Your destination is here!</p>
+            <!-- Display message about availability of handyman -->
+            <p class="mb-0"><!--Display message here --><a href="/login" class="alert-link"> Schedule Appointment Now!</a></p>
           </div>
         </div>
       </div>
-
       <div class="row top-buffer">
         <div class="col-md-6">
             <div class="ih-item square colored effect7 center-block">
@@ -113,30 +124,39 @@
             </div>
             </a>
           </div>
+          <div style="margin-top: 3%;" class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <p class="mb-0">Do you need a hand in making beds, replenishing linens, cleaning rooms and halls, or vacuuming etc. ? Your destination is here!</p>
+            <!-- Display message about availability of handyman -->
+            <p class="mb-0"><!--Display message here --><a href="/login" class="alert-link"> Schedule Appointment Now!</a></p>
+          </div>
         </div>
         <div class="col-md-6">
-           <div class="ih-item square colored effect7 center-block">
+          <div class="ih-item square colored effect7 center-block">
             <a href="#">
               <div class="img"><img src="/homepage-pics/repair.jpg"></div>
               <div class="info">
                 <h3>repair</h3>
                 <p>Need to repair stuff?</p>
-            </div>
+              </div>
             </a>
+          </div>
+          <div style="margin-top: 3%;" class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <p class="mb-0">Do you need a hand in repairing the structure and exterior of the building – including the roof, walls, windows, external doors, gas pipes, electrical wiring or any appliances ? Your destination is here!</p>
+            <!-- Display message about availability of handyman -->
+            <p class="mb-0"><!--Display message here --><a href="/login" class="alert-link"> Schedule Appointment Now!</a></p>
           </div>
         </div>
       </div>
     </div>
-    
-
     <!-- FOOTER -->
-    <div style ="background: black; border-color: black;" class="navbar navbar-inverse ">
+    <nav style="background-color: black;" class="navbar navbar-fixed-bottom">
       <div class="container">
-        <div class="navbar-text pull-left">
-          <p>copyright YourHelpingHand 2016</p>
+        <div style="color: white;" class="navbar-text pull-left">
+          <p>copyright YourHelpingHand 2017</p>
         </div>  
       </div>
-    </div>
-    
+    </nav>
   </body>
 </html>
