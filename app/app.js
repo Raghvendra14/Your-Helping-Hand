@@ -3,6 +3,7 @@ var express = require('express'),
 	path = require('path'),
 	mongo = require('mongodb').MongoClient,
 	bodyParser = require('body-parser'),
+	multiparty = require('connect-multiparty'),
 	session = require('express-session'),
 	url = 'mongodb://localhost:27017/yourhelpinghand',
 	Home = require('./controllers/Home')
@@ -10,6 +11,7 @@ var express = require('express'),
 	Register = require('./controllers/Register')
 	Profile = require('./controllers/Profile')
 	Logout = require('./controllers/Logout')
+	UploadPic = require('./controllers/UploadPic')
 
 app.set('views', __dirname + '/templates/html')
 app.set('view engine', 'hjs')
@@ -20,6 +22,7 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 	}))
+app.use(multiparty())
 app.use(express.static(path.join(__dirname, 'templates')))
 
 mongo.connect(url, function (err, db) {
@@ -45,6 +48,9 @@ mongo.connect(url, function (err, db) {
 		})
 		app.get('/logout', function (req, res, next) {
 			Logout.run(req, res, next)
+		})
+		app.all('/:name/upload', attachDB, function(req, res, next) {
+			UploadPic.run(req, res, next)
 		})
 		app.listen(3000, function() {
 			console.log(

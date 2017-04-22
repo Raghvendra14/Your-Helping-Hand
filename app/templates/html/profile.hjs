@@ -47,7 +47,6 @@
           if (file) {
               file.upload = Upload.upload({
               url: '/{{username}}/upload',
-              method: 'POST',
               data: {file: file}
             });
 
@@ -95,10 +94,11 @@
         height: 20px;
         border: 3px groove #CCC;
       }
-      .progress div {
+      .progress>div {
         font-size: smaller;
-        background: green;
-        width: 0;
+        background-color: green;
+        text-align: center;
+        color: white;
       }
     </style>
   </head>
@@ -132,12 +132,11 @@
             <label class="btn btn-default btn-file">
               <div class="button" type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/*" ngf-max-height="2000" ngf-max-size="5MB">Change photo</div>
             </label>
-            <div style="font-size:smaller">Hello {{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}</div>
+            <div style="font-size:smaller" ng-bind="f.name"></div>
             <span class="progress" ng-show="f.progress >= 0">
               <div style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></div>
             </span>
-            <span ng-show="f.result">Upload Successful</span>
-            <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+            <span class="err" ng-show="errorMsg" ng-bind = "errorMsg"></span>
           </div><br>
           <h4 class="card-title">{{fullname}}</h4>
           <hr>
