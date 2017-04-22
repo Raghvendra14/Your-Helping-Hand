@@ -128,7 +128,7 @@
         <div class="card-block">
           <div class="text-center">
             <!--User pic --> <!--User Profile picture and User name -->
-            <img class="img-responsive rounded mx-auto d-block img-thumbnail img-circle" src="../img/blank-square-800x800.png" alt="" style="width: 150px; height: 150px"><br><br>
+            <img class="img-responsive rounded mx-auto d-block img-thumbnail img-circle" src="{{profilePic}}" alt="" style="width: 150px; height: 150px" onerror="this.src='../img/default.png'"><br><br>
             <label class="btn btn-default btn-file">
               <div class="button" type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/*" ngf-max-height="2000" ngf-max-size="5MB">Change photo</div>
             </label>

@@ -1,29 +1,25 @@
 var BaseController = require('./Base'),
-	View = require('../views/Base'),
-	model = new (require('../models/ContentModel')),
 	s3 = require('s3')
 	s3Client = s3.createClient({
 		s3Options: {
 			accessKeyId: "AKIAIFSARA4FE4VGN6DA",
-			secretAccessKey: "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"
+			secretAccessKey: "pe2qu+WHOht67R78JWAjFpBlXUQCV4Iqb2izt/nJ",
+			region: "us-west-1"
 		}
 	})
 
 module.exports = BaseController.extend({
 	name: 'updatePic',
-	content: null,
 	run: function (req, res, next) {
-		var self = this
-		model.setDB(req.db)
 		var file = req.files.file
-		var extension = file.path.substring(file.path.lastIndexOf('.'))
-		var destPath = req.params.name + "/profile/profilepic" + extension
-		console.log(file.path)
+		var destPath = req.params.name + "/profile/profilepic.jpg"
 		var params = {
 			localFile: file.path,	
 			s3Params: {
-				Bucket: "yhhprofilepics",
-				Key: destPath
+				Bucket: "yhhprofilepicfolder",
+				Key: destPath,
+				ACL: 'public-read',
+				CacheControl: 'max-age=0'
 			}
 		}
 		var uploader = s3Client.uploadFile(params)
@@ -38,8 +34,8 @@ module.exports = BaseController.extend({
 
 		uploader.on('end', function() {
 			console.log('done uploading')
-			var v = new View(res, 'profile')
-			v.render(self.content)
+			res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0')
+			res.redirect("/profile/" + req.params.name)
 		})
 	}
 })

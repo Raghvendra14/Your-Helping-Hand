@@ -49,7 +49,7 @@ mongo.connect(url, function (err, db) {
 		app.get('/logout', function (req, res, next) {
 			Logout.run(req, res, next)
 		})
-		app.all('/:name/upload', attachDB, function(req, res, next) {
+		app.all('/:name/upload', function(req, res, next) {
 			UploadPic.run(req, res, next)
 		})
 		app.listen(3000, function() {

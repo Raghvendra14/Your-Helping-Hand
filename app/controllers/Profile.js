@@ -23,7 +23,10 @@ module.exports = BaseController.extend({
 					self.renderLogin(res, self)
 				} 
 				if (data.length != 0) {
-					var userData = data[0]
+					var userData = data[0]	
+					var profilePic = "https://s3-us-west-1.amazonaws.com/yhhprofilepicfolder/" + 
+						req.session.username + "/profile/profilepic.jpg"
+					userData.profilePic = profilePic
 					var v = new View(res, 'profile')
 					v.render(userData)
 				}
@@ -40,5 +43,5 @@ module.exports = BaseController.extend({
 		self.content = {}
 		self.content.retry = 'Error loading profile. Try Again!'
 		v.render(self.content)
-	}	
+	}
 })
