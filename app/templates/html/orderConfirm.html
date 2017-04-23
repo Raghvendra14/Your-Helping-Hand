@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Confirmation</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <style type="text/css">
+          .navbar {
+            color: white;
+            background-color: #7B68EE;
+            border-color: #7B68EE;
+            margin-bottom: 0;
+          }
+          .jumbotron{
+            margin-top: -1px;
+          }
+       
+          .navbar .navbar-brand{
+            color: #fff;
+          }
+          .top-buffer{
+            margin: 20px 20px 20px 20px ;
+          }
+          .center-block{
+            float: none;
+          }
+    </style>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">
+            <span class="glyphicon glyphicon-home"> YOUR HELPING HAND</span>
+          </a>
+        </div>
+        <div class="pull-right" style="color: white;">
+          <h4><span class="glyphicon glyphicon-user"></span> My Username</h4>
+        </div>
+        <div class="pull-right" style="margin-right: 5%; padding:10px">
+          <a href="#"><h6 style="color: white;"><span class="glyphicon glyphicon-log-out"></span> Logout</h6></a>
+        </div>  
+      </div>
+    </nav>
+    <!--Jumbotron-->
+    <div style="color: white; background: #7B68EE" class = "jumbotron">
+      <div class="container text-center">
+        <h4>APPOINTMENT CONFIRMATION</h4>
+      </div>
+    </div>
+    <!--card -->
+    <div class="container" style="margin-top: 2%; margin-bottom: 2%;">
+      <div class="row">
+        <div class="col-sm-6">
+          <!--card for the schedule confirmation details-->
+          <div class="card">
+            <div class="card-block">
+              <div class="text-center">
+                <img class="img-responsive img-thumbnail img-circle" src="../img/default.png" alt="" style="width: 150px; height: 150px">
+              </div>
+            </div>
+            <hr>
+            <div class="card-block">
+              <h3 class="card-title">Schedule Confirmation</h3>
+                <!--Display the confirmation info- it includes type of service, description, date, time -->
+              <p class="card-text">info of appointment.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <!--card for handyman details-->
+          <div class="card">
+            <div class="card-block">
+              <div class="text-center">
+                <img class="img-responsive img-thumbnail img-circle" src="../img/default.png" alt="" style="width: 150px; height: 150px">
+              </div>
+            </div>
+            <hr>
+            <div class="card-block">
+              <h3 class="card-title">Handyman at service</h3>
+                <!--Display the handyman info- it includes name, service, phn number -->
+              <p class="card-text">handyman info.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>    

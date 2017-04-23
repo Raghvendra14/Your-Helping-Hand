@@ -12,6 +12,9 @@ var express = require('express'),
 	Profile = require('./controllers/Profile')
 	Logout = require('./controllers/Logout')
 	UploadPic = require('./controllers/UploadPic')
+	Admin = require('./controllers/Admin'),
+	CPanel = require('./controllers/CPanel')
+	AdminLogout = require('./controllers/AdminLogout')
 
 app.set('views', __dirname + '/templates/html')
 app.set('view engine', 'hjs')
@@ -49,8 +52,20 @@ mongo.connect(url, function (err, db) {
 		app.get('/logout', function (req, res, next) {
 			Logout.run(req, res, next)
 		})
-		app.all('/:name/upload', function(req, res, next) {
+		app.all('/:name/upload', function (req, res, next) {
 			UploadPic.run(req, res, next)
+		})
+		app.all('/admin', attachDB, function (req, res, next) {
+			Admin.run(req, res, next)
+		})
+		app.get('/cpanel', function (req, res, next) {
+			CPanel.run(req, res, next)
+		})
+		app.post('/cpanel', attachDB, function (req, res, next) {
+			CPanel.uploadEmployeeDetails(req, res, next)
+		})
+		app.all('/adminLogout', function (req, res, next) {
+			AdminLogout.run(req, res, next)
 		})
 		app.listen(3000, function() {
 			console.log(

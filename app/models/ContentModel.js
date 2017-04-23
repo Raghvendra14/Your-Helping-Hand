@@ -8,6 +8,12 @@ module.exports = model.extend({
 	insertLgCredentials: function(data, callback) {
 		this.lg_cred_collection().insertOne(data, callback)
 	},
+	insertEmployeeDetails: function(data, callback) {
+		this.employee_detail_collection().insertOne(data, callback)
+	},
+	insertCategoryData: function(category, data, callback) {
+		this.service_collection(category).insertOne(data, callback)
+	},
 	update: function(data, callback) {
 		// write update code here
 	},
@@ -16,6 +22,9 @@ module.exports = model.extend({
 	},
 	getUserDetails: function(callback, query) {
 		this.user_detail_collection().find(query).toArray(callback)
+	},
+	getAdminCredentials: function(callback, query) {
+		this.admin_lg_collection().find(query).toArray(callback)
 	},
 	checkUsernameAvailability: function(callback, query, project) {
 		this.user_detail_collection().find(query).project(project).toArray(callback)
