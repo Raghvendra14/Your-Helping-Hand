@@ -26,8 +26,11 @@ module.exports = model.extend({
 	getAdminCredentials: function(callback, query) {
 		this.admin_lg_collection().find(query).toArray(callback)
 	},
-	checkUsernameAvailability: function(callback, query, project) {
+	getProjectedUserDetails: function(callback, query, project) {
 		this.user_detail_collection().find(query).project(project).toArray(callback)
+	},
+	getServiceInfo: function(callback, query, category) {
+		this.service_collection(category).find(query).toArray(callback)
 	},
 	remove: function(ID, callback) {
 		// write remove code here

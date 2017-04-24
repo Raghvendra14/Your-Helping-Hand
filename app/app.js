@@ -13,8 +13,9 @@ var express = require('express'),
 	Logout = require('./controllers/Logout')
 	UploadPic = require('./controllers/UploadPic')
 	Admin = require('./controllers/Admin'),
-	CPanel = require('./controllers/CPanel')
-	AdminLogout = require('./controllers/AdminLogout')
+	CPanel = require('./controllers/CPanel'),
+	AdminLogout = require('./controllers/AdminLogout'),
+	Schedule = require('./controllers/Schedule')	
 
 app.set('views', __dirname + '/templates/html')
 app.set('view engine', 'hjs')
@@ -66,6 +67,10 @@ mongo.connect(url, function (err, db) {
 		})
 		app.all('/adminLogout', function (req, res, next) {
 			AdminLogout.run(req, res, next)
+		})
+		app.all('/schedule', attachDB, function (req, res, next) {
+			console.log('Calling Schedule')
+			Schedule.run(req, res, next)
 		})
 		app.listen(3000, function() {
 			console.log(

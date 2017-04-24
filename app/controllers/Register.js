@@ -16,7 +16,7 @@ module.exports = BaseController.extend({
 			req.body.phnumber &&
 			req.body.password &&
 			req.body.confirm_password) {
-			model.checkUsernameAvailability(function (err, data) {
+			model.getProjectedUserDetails(function (err, data) {
 				if (err) {
 					self.renderRegister(false, false, res, self)
 				}
