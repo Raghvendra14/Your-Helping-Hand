@@ -70,7 +70,6 @@ module.exports = BaseController.extend({
 			self.content.success = ''
 			self.content.err = 'Some error occured. Please try again.'
 		}
-		console.log(self.content)
 		v.render(self.content)
 	}
 })

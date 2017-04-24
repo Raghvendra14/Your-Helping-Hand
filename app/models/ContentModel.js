@@ -29,6 +29,9 @@ module.exports = model.extend({
 	getProjectedUserDetails: function(callback, query, project) {
 		this.user_detail_collection().find(query).project(project).toArray(callback)
 	},
+	getProjectedEmployeeDetails: function(callback, query, project) {
+		this.employee_detail_collection().find(query).project(project).toArray(callback)
+	}, 
 	getServiceInfo: function(callback, query, category) {
 		this.service_collection(category).find(query).toArray(callback)
 	},
