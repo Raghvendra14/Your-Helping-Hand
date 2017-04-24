@@ -1,6 +1,8 @@
 var BaseController = require('./Base'),
 	View = require('../views/Base'),
-	model = new (require('../models/ContentModel'))
+	// 'new' keyword is used to generate a new 'this' value and invokes requires as a constructor
+	model = new (require('../models/ContentModel')),
+	googleMapsWS = require('../services/GoogleDistanceMatrix')
 
 module.exports = BaseController.extend({
 	name: 'schedule',
@@ -28,6 +30,9 @@ module.exports = BaseController.extend({
 							self.renderProfile(!isUserLocationNotAvailable, res, self)
 						} else if (userLocation!== null) {
 							console.log(userLocation)
+							var userFullLoc = userLocation[0].address + ', ' + userLocation[0].pincode
+							var smallestDistance = 0 // Temp variable
+							var bestAvailableEmpId = null
 							data.forEach(function (list) {
 								self.fetchEmployeeLocation(list, function (isEmpLocNotAvailable, employeeLocation) {
 									if (isEmpLocNotAvailable === true) {
@@ -37,9 +42,26 @@ module.exports = BaseController.extend({
 									} else if (employeeLocation !== null) {
 										console.log('Returned location value: \n')
 										console.log(employeeLocation)
+										var empFullLoc = employeeLocation[0].address + ', ' + employeeLocation[0].pincode
+										googleMapsWS.getDistance(userFullLoc, empFullLoc, function (response) {
+											if (response === null) {
+												self.renderProfile(false, res, self)
+											} else {
+												// console.log(response)
+												var distance = parseFloat(response.rows[0].elements[0].distance.text.toString().split(' ')[0])
+												console.log('The distance in kilometers are:  ')
+												console.log(distance)
+												if (smallestDistance < distance) {
+													smallestDistance = distance
+													bestAvailableEmpId = employeeLocation[0].empID
+												}
+											}
+										})
 									}		
 								})
 							})
+							console.log('Smallest distance available of userId: ')
+							console.log(bestAvailableEmpId + 'present at ' + smallestDistance.toString() + ' Km away')
 						}
 					})
 				}	
@@ -95,6 +117,7 @@ module.exports = BaseController.extend({
 		}, {
 			empID: list.empId
 		}, {
+			empId: 1,
 			address: 1,
 			pincode: 1
 		})
