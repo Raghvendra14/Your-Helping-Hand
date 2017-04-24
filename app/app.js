@@ -69,7 +69,6 @@ mongo.connect(url, function (err, db) {
 			AdminLogout.run(req, res, next)
 		})
 		app.all('/schedule', attachDB, function (req, res, next) {
-			console.log('Calling Schedule')
 			Schedule.run(req, res, next)
 		})
 		app.listen(3000, function() {

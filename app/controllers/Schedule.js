@@ -13,9 +13,10 @@ module.exports = BaseController.extend({
 			req.body.servicedesc &&
 			req.session.yourhelpinghand &&
 			req.session.yourhelpinghand === true &&
-			req.session.username) {
+			req.session.username &&
+			req.body.paymentMode) {
 			self.checkServiceAvailability(req, res, self, function (data) {
-				console.log('Data by callback: ' + data)
+				console.log(data)
 			}) 
 		} else {
 			self.renderProfile(false, res, self)
@@ -27,7 +28,7 @@ module.exports = BaseController.extend({
 				self.renderProfile(false, res, self)
 			} else {
 				if (data.length !== 0) {
-					console.log(data)
+					callback(data)
 				} else {
 					self.renderProfile(true, res, self)
 				}
@@ -36,6 +37,7 @@ module.exports = BaseController.extend({
 			status: 'Available'
 		}, req.body.category)
 	}, 
+	/* Fix this code for any error case */
 	renderProfile: function(isServiceAvailable, res, self) {
 		var v = new View(res, 'profile')
 		self.content = {}
