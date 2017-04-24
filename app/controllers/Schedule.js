@@ -1,5 +1,5 @@
 var BaseController = require('./Base'),
-	View = require('../views/Base'),
+	// View = require('../views/Base'),
 	// 'new' keyword is used to generate a new 'this' value and invokes requires as a constructor
 	model = new (require('../models/ContentModel')),
 	googleMapsWS = require('../services/GoogleDistanceMatrix')
@@ -18,56 +18,85 @@ module.exports = BaseController.extend({
 			req.session.username &&
 			req.body.paymentMode) {
 			self.checkServiceAvailability(req, function (isServiceNotAvailable, data) {
-				if (isServiceNotAvailable === true) {
-					self.renderProfile(isServiceNotAvailable, res, self)
-				} else if (isServiceNotAvailable === false) {
-					self.renderProfile(!isServiceNotAvailable, res, self)
+				if (isServiceNotAvailable) {
+					// self.renderProfile(isServiceNotAvailable, res, self)
+					req.statusMessage = isServiceNotAvailable
+					return next()
+				// } else if (isServiceNotAvailable === false) {
+				// 	// self.renderProfile(isServiceNotAvailable, res, self)
+				// 	req.statusMessage = isServiceNotAvailable
 				} else if (data !== null) {
 					self.fetchUserLocation(req, function (isUserLocationNotAvailable, userLocation) {
-						if (isUserLocationNotAvailable === true) {
-							self.renderProfile(isUserLocationNotAvailable, res, self)
-						} else if (isUserLocationNotAvailable === false) {
-							self.renderProfile(!isUserLocationNotAvailable, res, self)
+						if (isUserLocationNotAvailable) {
+							// self.renderProfile(isUserLocationNotAvailable, res, self)
+							req.statusMessage = isUserLocationNotAvailable
+							return next()
+						// } else if (isUserLocationNotAvailable === false) {
+						// 	// self.renderProfile(isUserLocationNotAvailable, res, self)
+						// 	req.statusMessage = isUserLocationNotAvailable
 						} else if (userLocation!== null) {
 							console.log(userLocation)
 							var userFullLoc = userLocation[0].address + ', ' + userLocation[0].pincode
-							var smallestDistance = 0 // Temp variable
-							var bestAvailableEmpId = null
-							data.forEach(function (list) {
-								self.fetchEmployeeLocation(list, function (isEmpLocNotAvailable, employeeLocation) {
-									if (isEmpLocNotAvailable === true) {
-										self.renderProfile(isEmpLocNotAvailable, res, self)
-									} else if (isEmpLocNotAvailable === false) {
-										self.renderProfile(!isEmpLocNotAvailable, res, self)
-									} else if (employeeLocation !== null) {
-										console.log('Returned location value: \n')
-										console.log(employeeLocation)
-										var empFullLoc = employeeLocation[0].address + ', ' + employeeLocation[0].pincode
-										googleMapsWS.getDistance(userFullLoc, empFullLoc, function (response) {
-											if (response === null) {
-												self.renderProfile(false, res, self)
-											} else {
-												// console.log(response)
-												var distance = parseFloat(response.rows[0].elements[0].distance.text.toString().split(' ')[0])
-												console.log('The distance in kilometers are:  ')
-												console.log(distance)
-												if (smallestDistance < distance) {
-													smallestDistance = distance
-													bestAvailableEmpId = employeeLocation[0].empID
+							var promises = data.map(function (list) {
+								return new Promise(function(resolve, reject) {
+									self.fetchEmployeeLocation(list, function (isEmpLocNotAvailable, employeeLocation) {
+										if (isEmpLocNotAvailable) {
+											// self.renderProfile(isEmpLocNotAvailable, res, self)
+											req.statusMessage = isEmpLocNotAvailable
+											return next()
+										// } else if (isEmpLocNotAvailable === false) {
+										// 	// self.renderProfile(isEmpLocNotAvailable, res, self)
+										// 	req.statusMessage = isEmpLocNotAvailable
+										} else if (employeeLocation !== null) {
+											console.log('Returned location value: \n')
+											console.log(employeeLocation)
+											var empFullLoc = employeeLocation[0].address + ', ' + employeeLocation[0].pincode
+											googleMapsWS.getDistance(userFullLoc, empFullLoc, function (response) {
+												if (response === null) {
+													// self.renderProfile(false, res, self)
+													req.statusMessage = false
+													return reject()
+												} else {
+													// console.log(response)
+													var distance = parseFloat(response.rows[0].elements[0].distance.text.toString().split(' ')[0])
+													console.log('The distance in kilometers are:  ')
+													console.log(distance)
+													var returnObject = {
+														empID: employeeLocation[0].empID,
+														distance: distance
+													}
+													resolve(returnObject)
 												}
-											}
-										})
-									}		
+											})
+										}		
+									})
 								})
 							})
-							console.log('Smallest distance available of userId: ')
-							console.log(bestAvailableEmpId + 'present at ' + smallestDistance.toString() + ' Km away')
+							Promise.all(promises)
+							.then(function(distanceArray) {
+								console.log('Distance Array: \n')
+								console.log(distanceArray)
+								var smallestDistance = 10.0 // distance should be less than 10 kilometers for any employee to get assigned the task
+								var bestAvailableEmpId = null // Best Employee Id
+								for (var object of distanceArray) {
+									if (object.distance <= smallestDistance) {
+										smallestDistance = object.distance
+										bestAvailableEmpId = object.empID
+									}
+								}
+								console.log('Best Id with minimum distance of ' + smallestDistance.toString() + ' is ' + bestAvailableEmpId)
+								req.empID = bestAvailableEmpId
+								// res.redirect('/schedule?assignId=' + bestAvailableEmpId)
+								return next()
+							})
 						}
 					})
 				}	
 			}) 
 		} else {
-			self.renderProfile(false, res, self)
+			// self.renderProfile(false, res, self)
+			req.statusMessage = false
+			return next()
 		}
 	},
 	checkServiceAvailability: function (req, callback) {
@@ -117,22 +146,23 @@ module.exports = BaseController.extend({
 		}, {
 			empID: list.empId
 		}, {
-			empId: 1,
+			empID: 1,
 			address: 1,
 			pincode: 1
 		})
-	},
-	/* Fix this code for any error case */
-	renderProfile: function(isServiceAvailable, res, self) {
-		var v = new View(res, 'profile')
-		self.content = {}
-		if (isServiceAvailable) {
-			self.content.noServiceAvailable = 'Sorry, No service available at this moment. Please try again later.'
-			self.content.err = ''
-		} else {
-			self.content.noServiceAvailable = ''
-			self.content.err = 'Some error occured. Please try again.'
-		}
-		v.render(self.content)
 	}
+	// ,
+	// /* Fix this code for any error case */
+	// renderProfile: function(isServiceAvailable, res, self) {
+	// 	var v = new View(res, 'profile')
+	// 	self.content = {}
+	// 	if (isServiceAvailable) {
+	// 		self.content.noServiceAvailable = 'Sorry, No service available at this moment. Please try again later.'
+	// 		self.content.err = ''
+	// 	} else {
+	// 		self.content.noServiceAvailable = ''
+	// 		self.content.err = 'Some error occured. Please try again.'
+	// 	}
+	// 	v.render(self.content)
+	// }
 })

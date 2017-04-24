@@ -52,10 +52,10 @@
           </a>
         </div>
         <div class="pull-right" style="color: white;">
-          <h4><span class="glyphicon glyphicon-user"></span> My Username</h4>
+          <h4><span class="glyphicon glyphicon-user"></span>{{username}}</h4>
         </div>
         <div class="pull-right" style="margin-right: 5%; padding:10px">
-          <a href="#"><h6 style="color: white;"><span class="glyphicon glyphicon-log-out"></span> Logout</h6></a>
+          <a href="/logout"><h6 style="color: white;"><span class="glyphicon glyphicon-log-out"></span> Logout</h6></a>
         </div>  
       </div>
     </nav>
@@ -89,7 +89,7 @@
           <div class="card">
             <div class="card-block">
               <div class="text-center">
-                <img class="img-responsive img-thumbnail img-circle" src="../img/default.png" alt="" style="width: 150px; height: 150px">
+                <img class="img-responsive img-thumbnail img-circle" src="{{userProfilePic}}" alt="" style="width: 150px; height: 150px" onError="../img/default.png">
               </div>
             </div>
             <hr>
