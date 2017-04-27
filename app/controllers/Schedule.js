@@ -50,7 +50,7 @@ module.exports = BaseController.extend({
 										} else if (employeeLocation !== null) {
 											console.log('Returned location value: \n')
 											console.log(employeeLocation)
-											var empFullLoc = employeeLocation[0].address + ', ' + employeeLocation[0].pincode
+											var empFullLoc = employeeLocation[0].address + ', ' + employeeLocation[0].city + ', ' + employeeLocation[0].country + ', ' + employeeLocation[0].pincode
 											googleMapsWS.getDistance(userFullLoc, empFullLoc, function (response) {
 												if (response === null) {
 													// self.renderProfile(false, res, self)
@@ -62,7 +62,7 @@ module.exports = BaseController.extend({
 													console.log('The distance in kilometers are:  ')
 													console.log(distance)
 													var returnObject = {
-														empID: employeeLocation[0].empID,
+														empId: employeeLocation[0].empId,
 														distance: distance
 													}
 													resolve(returnObject)
@@ -81,11 +81,11 @@ module.exports = BaseController.extend({
 								for (var object of distanceArray) {
 									if (object.distance <= smallestDistance) {
 										smallestDistance = object.distance
-										bestAvailableEmpId = object.empID
+										bestAvailableEmpId = object.empId
 									}
 								}
 								console.log('Best Id with minimum distance of ' + smallestDistance.toString() + ' is ' + bestAvailableEmpId)
-								req.empID = bestAvailableEmpId
+								req.empId = bestAvailableEmpId
 								// res.redirect('/schedule?assignId=' + bestAvailableEmpId)
 								return next()
 							})
@@ -144,10 +144,12 @@ module.exports = BaseController.extend({
 				}
 			}
 		}, {
-			empID: list.empId
+			empId: list.empId
 		}, {
-			empID: 1,
+			empId: 1,
 			address: 1,
+			city: 1,
+			country: 1,
 			pincode: 1
 		})
 	}

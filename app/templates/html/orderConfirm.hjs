@@ -6,30 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Confirmation</title>
-
+    <link href="https://fonts.googleapis.com/css?family=Amita|Sahitya" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <style type="text/css">
-          .navbar {
-            color: white;
-            background-color: #7B68EE;
-            border-color: #7B68EE;
-            margin-bottom: 0;
-          }
-          .jumbotron{
-            margin-top: -1px;
-          }
+      body{
+        font-family: 'Amita', cursive;
+        font-family: 'Sahitya', serif;
+      }
+      .navbar {
+        color: white;
+        background-color: #7B68EE;
+        border-color: #7B68EE;
+        margin-bottom: 0;
+      }
+      .jumbotron{
+        margin-top: -1px;
+      }
        
-          .navbar .navbar-brand{
-            color: #fff;
-          }
-          .top-buffer{
-            margin: 20px 20px 20px 20px ;
-          }
-          .center-block{
-            float: none;
-          }
+      .navbar .navbar-brand{
+        color: #fff;
+      }
+      .top-buffer{
+        margin: 20px 20px 20px 20px ;
+      }
+      .center-block{
+        float: none;
+      }
     </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -65,14 +69,15 @@
         <h4>APPOINTMENT CONFIRMATION</h4>
       </div>
     </div>
-    <!--card -->
-    <div class="container" style="margin-top: 2%; margin-bottom: 2%;">
+    <!-- body container-->
+    <div class="container" style="margin-top: 2%; margin-bottom: 26%;">
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-md-6 col-xs-12">
           <!--card for the schedule confirmation details-->
           <div class="card">
             <div class="card-block">
               <div class="text-center">
+                <!-- user photo-->
                 <img class="img-responsive img-thumbnail img-circle" src="../img/default.png" alt="" style="width: 150px; height: 150px">
               </div>
             </div>
@@ -80,15 +85,22 @@
             <div class="card-block">
               <h3 class="card-title">Schedule Confirmation</h3>
                 <!--Display the confirmation info- it includes type of service, description, date, time -->
-              <p class="card-text">info of appointment.</p>
+              <p class="card-text"><!--Name--></p>
+              <p class="card-text"><!--Address--></p>
+              <p class="card-text"><!--Pincode--></p>
+              <p class="card-text"><!--Phone number--></p>
+              <p class="card-text"><!--Service--></p>
+              <p class="card-text"><!--Date and Time--></p> 
+              <p class="card-text"><!-- Schedule ID(known only to the user)--></p>
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-md-6 col-xs-12">
           <!--card for handyman details-->
           <div class="card">
             <div class="card-block">
               <div class="text-center">
+                <!-- Handyman photo -->
                 <img class="img-responsive img-thumbnail img-circle" src="{{userProfilePic}}" alt="" style="width: 150px; height: 150px" onError="../img/default.png">
               </div>
             </div>
@@ -96,11 +108,20 @@
             <div class="card-block">
               <h3 class="card-title">Handyman at service</h3>
                 <!--Display the handyman info- it includes name, service, phn number -->
-              <p class="card-text">handyman info.</p>
+              <p class="card-text"><!-- Name of handyman--></p>
+              <p class="card-text"><!-- phn number of the handyman--></p>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- FOOTER -->
+    <nav style="background-color: black;" class="navbar navbar-fixed-bottom">
+      <div class="container-fluid">
+        <div style="color: white;" class="navbar-text pull-left">
+          <p>copyright YourHelpingHand 2017</p>
+        </div>  
+      </div>
+    </nav>
   </body>
 </html>    

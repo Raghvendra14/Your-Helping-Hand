@@ -1,7 +1,8 @@
 var BaseController = require('./Base'),
 	View = require('../views/Base'),
 	model = new (require('../models/ContentModel')),
-	shortId = require('shortid')
+	shortId = require('shortid'),
+	awsService = require('../services/AWSS3Upload')
 
 module.exports = BaseController.extend({
 	name: 'cpanel',
@@ -19,40 +20,59 @@ module.exports = BaseController.extend({
 		}
 	},
 	uploadEmployeeDetails: function (req, res, next) {
+		var JSONinfo = JSON.parse(req.body.info)
+		var self = this
 		if (req.session.yhhadmin && req.method === 'POST' &&
-			req.body.fullname &&
-			req.body.address &&
-			req.body.pincode &&
-			req.body.phnumber &&
-			req.body.category) {
-			var self = this
+			JSONinfo.fullname &&
+			JSONinfo.address &&
+			JSONinfo.city &&
+			JSONinfo.country &&
+			JSONinfo.pincode &&
+			JSONinfo.phnumber &&
+			JSONinfo.aadhaar &&
+			JSONinfo.bankAccount &&
+			JSONinfo.bankName &&
+			req.files.file) {
+			if (JSONinfo.category === null) {
+				JSONinfo.category = "Electrician"
+			}
 			model.setDB(req.db)
-			var employeeId = req.body.fullname + shortId.generate()
-			var employeeData = {
-				empID: employeeId, 
-				name: req.body.fullname,
-				address: req.body.address,
-				pincode: req.body.pincode,
-				phnumber: req.body.phnumber,
-				category: req.body.category
-			}
-			model.insertEmployeeDetails(employeeData, function (err, objects) {
-				if (err) {
-					self.renderAdminReg(false, req, res, self, null)
-				} else {
-					console.log(objects.insertedCount + " Employee added.")
+			var employeeId = JSONinfo.fullname.toString().split(' ')[0] + shortId.generate()
+			var srcPath = req.files.file.path
+			var destPath = "employeepics/" + employeeId + "/profile/profilepic.jpg"
+			awsService.uploadFiles(srcPath, destPath, function () {
+				console.log('Employee Profile Pic Uploaded.')
+				var employeeData = {
+					empId: employeeId, 
+					name: JSONinfo.fullname,
+					address: JSONinfo.address,
+					city: JSONinfo.city,
+					country: JSONinfo.country,
+					pincode: JSONinfo.pincode,
+					phnumber: JSONinfo.phnumber,
+					aadhaarno: JSONinfo.aadhaar,
+					bankAccount: JSONinfo.bankAccount,
+					bankName: JSONinfo.bankName,
+					category: JSONinfo.category
 				}
-			})
-			var employeeCategory = {
-				empId : employeeId,
-				status: 'Available'
-			}
-			model.insertCategoryData(req.body.category, employeeCategory, function (err, objects) {
-				if (err) {
-					self.renderAdminReg(false, req, res, self, null)
-				} else {
-					self.renderAdminReg(true, req, res, self, employeeId)
+				model.insertEmployeeDetails(employeeData, function (err, objects) {
+					if (err) {
+						self.renderAdminReg(false, req, res, self, null)
+					} else {
+						console.log(objects.insertedCount + " Employee added.")
+					}
+				})
+				var employeeCategoryData = {
+					empId : employeeId,
+					status: 'Available'
 				}
+				model.insertCategoryData(JSONinfo.category, employeeCategoryData, function (err, objects) {
+					if (err) {
+						self.renderAdminReg(false, req, res, self, null)
+					} else {
+						self.renderAdminReg(true, req, res, self, employeeId)
+					}
+				})
 			})
 		} else {
 			self.renderAdminReg(false, req, res, self, null)
@@ -70,6 +90,7 @@ module.exports = BaseController.extend({
 			self.content.success = ''
 			self.content.err = 'Some error occured. Please try again.'
 		}
+		console.log(self.content)
 		v.render(self.content)
 	}
 })

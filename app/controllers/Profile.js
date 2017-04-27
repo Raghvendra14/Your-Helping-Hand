@@ -24,7 +24,7 @@ module.exports = BaseController.extend({
 				} 
 				if (data.length != 0) {
 					var userData = data[0]	
-					var profilePic = "https://s3-us-west-1.amazonaws.com/yhhprofilepicfolder/" + 
+					var profilePic = "https://s3-us-west-1.amazonaws.com/yhhprofilepicfolder/userpics/" + 
 						req.session.username + "/profile/profilepic.jpg"
 					userData.profilePic = profilePic
 					var v = new View(res, 'profile')

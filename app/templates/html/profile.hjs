@@ -123,7 +123,7 @@
     <div class="container" style="margin-top: 2%; margin-bottom: 12%;">
       <div class="card">
         <div class="card-header float-left">
-          My Details
+          <h4>My Details</h4>
         </div>
         <div class="card-block">
           <div class="text-center">
@@ -149,9 +149,9 @@
           <!-- Display the address deltails of user. Address details contain the location, pin code  -->
           <p class="card-text">{{email}}</p>
         </div>
-        <div class="card-header float-left">
+        <div class="card-header">
           <!-- in case of editing the details, the updated details will be displayed-->
-          <a href="#CollapseEdit" data-toggle="collapse" aria-expanded="false" aria-controls="CollapseEdit">Edit</a> 
+          <a href="#CollapseEdit" data-toggle="collapse" aria-expanded="false" aria-controls="CollapseEdit"><h4>Edit<span style="float: right; font-size: 80%; color: red;">error message here</span></h4></a> 
         </div>
         <div class="collapse" id="CollapseEdit">
           <div class="container center-block">
@@ -202,8 +202,8 @@
             </div>
           </div> 
         </div>
-        <div class="card-header float-left">
-          <a href="#CollapseSchedule" data-toggle="collapse" aria-expanded="false" aria-controls="CollapseSchedule">Schedule appointment</a> 
+        <div class="card-header">
+          <a href="#CollapseSchedule" data-toggle="collapse" aria-expanded="false" aria-controls="CollapseSchedule"><h4>Schedule appointment<span style="float: right; font-size: 80%; color: red;">error message here</span></h4></a> 
         </div>
         <div class="collapse" id="CollapseSchedule">
           <div class="card-block">
@@ -278,7 +278,7 @@
     </div>
     <!-- FOOTER -->
     <nav style="background-color: black;" class="navbar navbar-fixed-bottom">
-      <div class="container">
+      <div class="container-fluid">
         <div style="color: white;" class="navbar-text pull-left">
           <p>copyright YourHelpingHand 2017</p>
         </div>  

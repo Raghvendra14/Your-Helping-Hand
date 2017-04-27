@@ -12,8 +12,8 @@ module.exports = BaseController.extend({
 		if (req.session.yourhelpinghand &&
 			req.session.yourhelpinghand === true &&
 			req.session.username) {
-			if (req.empID) {
-				var assignId = req.empID	
+			if (req.empId) {
+				var assignId = req.empId	
 				model.getProjectedEmployeeDetails(function (err, data) {
 					if (err) {
 						self.renderProfile(req, res)
@@ -33,7 +33,7 @@ module.exports = BaseController.extend({
 											userProfilePic: "https://s3-us-west-1.amazonaws.com/yhhprofilepicfolder/" + 
 												req.session.username + "/profile/profilepic.jpg",
 											empname: data.name,
-											empAddress: data.address,
+											empPhnumber: data.phnumber,
 											empCategory: req.body.category,
 											time: req.body.calender,
 											description: req.body.servicedesc,
@@ -56,7 +56,7 @@ module.exports = BaseController.extend({
 						}
 					}
 				}, {
-					empID: assignId
+					empId: assignId
 				}, {
 					name: 1,
 					phnumber: 1
