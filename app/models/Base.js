@@ -31,7 +31,6 @@ module.exports.prototype = {
 		return this._empCollection = this.db.collection('employee_details')
 	},
 	service_collection: function(category) {
-		if (this._serviceCollection) return this._serviceCollection
 		return this._serviceCollection = this.db.collection(category)
 	}
 }

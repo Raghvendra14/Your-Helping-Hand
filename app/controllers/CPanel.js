@@ -79,18 +79,13 @@ module.exports = BaseController.extend({
 		}
 	},
 	renderAdminReg: function (isSuccessfullyInserted, req, res, self, empId) {
-		var v = new View(res, 'admin')
-		self.content = {
-			adminname: req.session.adminname
-		}
 		if (isSuccessfullyInserted) {
-			self.content.success = 'Successfully added employee detail with ID: ' + empId + '.'
-			self.content.err = '' 
+			res.status(200)
+			self.content.success = 'Successfully added employee detail with ID: ' + empId
 		} else {
-			self.content.success = ''
+			res.status(500)
 			self.content.err = 'Some error occured. Please try again.'
 		}
-		console.log(self.content)
-		v.render(self.content)
+		res.json(self.content)
 	}
 })

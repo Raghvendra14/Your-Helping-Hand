@@ -172,13 +172,14 @@
                       </div>
                     </div>
                   </div>
+                  <span style="color:green;" ng-bind="success">Hello</span>
+                  <span style="color:red;" ng-bind="err"></span>
                 </form>
               </div>
             </div>
           </p>
         </div>
-        <span style="color:green;">{{success}}</span>
-        <span style="color:red;">{{err}}</span>
+        
       </div>
       <hr>
       <!-- search handyman-->

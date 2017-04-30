@@ -51,12 +51,12 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="/">
             <span class="glyphicon glyphicon-home"> YOUR HELPING HAND</span>
           </a>
         </div>
         <div class="pull-right" style="color: white;">
-          <h4><span class="glyphicon glyphicon-user"></span>{{username}}</h4>
+          <a href='/profile/{{username}}'><h4 style="color: white;"><span class="glyphicon glyphicon-user"></span>{{username}}</h4></a>
         </div>
         <div class="pull-right" style="margin-right: 5%; padding:10px">
           <a href="/logout"><h6 style="color: white;"><span class="glyphicon glyphicon-log-out"></span> Logout</h6></a>
@@ -78,20 +78,19 @@
             <div class="card-block">
               <div class="text-center">
                 <!-- user photo-->
-                <img class="img-responsive img-thumbnail img-circle" src="../img/default.png" alt="" style="width: 150px; height: 150px">
+                <img class="img-responsive img-thumbnail img-circle" src="{{userProfilePic}}" alt="" style="width: 150px; height: 150px" onerror="this.src='../img/default.png'">
               </div>
             </div>
             <hr>
             <div class="card-block">
               <h3 class="card-title">Schedule Confirmation</h3>
                 <!--Display the confirmation info- it includes type of service, description, date, time -->
-              <p class="card-text"><!--Name--></p>
-              <p class="card-text"><!--Address--></p>
-              <p class="card-text"><!--Pincode--></p>
-              <p class="card-text"><!--Phone number--></p>
-              <p class="card-text"><!--Service--></p>
-              <p class="card-text"><!--Date and Time--></p> 
-              <p class="card-text"><!-- Schedule ID(known only to the user)--></p>
+              <p class="card-text"><!--Name-->{{userfullname}}</p>
+              <p class="card-text"><!--Address-->{{userAddress}}</p>
+              <p class="card-text"><!--Pincode-->{{userPincode}}</p>
+              <p class="card-text"><!--Phone number-->{{userPhnumber}}</p>
+              <p class="card-text"><!--Date and Time-->{{time}}</p> 
+              <p class="card-text">Schedule ID<!-- Schedule ID(known only to the user)--></p>
             </div>
           </div>
         </div>
@@ -101,15 +100,18 @@
             <div class="card-block">
               <div class="text-center">
                 <!-- Handyman photo -->
-                <img class="img-responsive img-thumbnail img-circle" src="{{userProfilePic}}" alt="" style="width: 150px; height: 150px" onError="../img/default.png">
+                <img class="img-responsive img-thumbnail img-circle" src="{{empProfilePic}}" alt="" style="width: 150px; height: 150px" onError="../img/default.png">
               </div>
             </div>
             <hr>
             <div class="card-block">
               <h3 class="card-title">Handyman at service</h3>
                 <!--Display the handyman info- it includes name, service, phn number -->
-              <p class="card-text"><!-- Name of handyman--></p>
-              <p class="card-text"><!-- phn number of the handyman--></p>
+              <p class="card-text"><!-- Name of handyman-->{{empname}}</p>
+              <p class="card-text"><!-- phn number of the handyman-->{{empPhnumber}}</p>
+              <p class="card-text"><!-- payment mode -->{{paymentMode}}</p>
+              <p class="card-text"><!--Service-->{{empCategory}}</p>
+              <p class="card-text">{{description}}<!-- Problem Description --></p>
             </div>
           </div>
         </div>

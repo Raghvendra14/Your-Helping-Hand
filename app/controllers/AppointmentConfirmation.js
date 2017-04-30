@@ -26,14 +26,16 @@ module.exports = BaseController.extend({
 									if (records.length !== 0) {
 										self.content = {
 											username: req.session.username,
-											userfullname: records.fullname,
-											userAddress: records.address,
-											userPincode: records.pincode,
-											userPhnumber: records.phnumber,
-											userProfilePic: "https://s3-us-west-1.amazonaws.com/yhhprofilepicfolder/" + 
+											userfullname: records[0].fullname,
+											userAddress: records[0].address,
+											userPincode: records[0].pincode,
+											userPhnumber: records[0].phnumber,
+											userProfilePic: "https://s3-us-west-1.amazonaws.com/yhhprofilepicfolder/userpics/" + 
 												req.session.username + "/profile/profilepic.jpg",
-											empname: data.name,
-											empPhnumber: data.phnumber,
+											empProfilePic: "https://s3-us-west-1.amazonaws.com/yhhprofilepicfolder/employeepics/" +
+												assignId + "/profile/profilepic.jpg",
+											empname: data[0].name,
+											empPhnumber: data[0].phnumber,
 											empCategory: req.body.category,
 											time: req.body.calender,
 											description: req.body.servicedesc,
