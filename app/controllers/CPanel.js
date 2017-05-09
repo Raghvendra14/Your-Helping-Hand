@@ -41,7 +41,6 @@ module.exports = BaseController.extend({
 			var srcPath = req.files.file.path
 			var destPath = "employeepics/" + employeeId + "/profile/profilepic.jpg"
 			awsService.uploadFiles(srcPath, destPath, function () {
-				console.log('Employee Profile Pic Uploaded.')
 				var employeeData = {
 					empId: employeeId, 
 					name: JSONinfo.fullname,
@@ -77,6 +76,108 @@ module.exports = BaseController.extend({
 		} else {
 			self.renderAdminReg(false, req, res, self, null)
 		}
+	},
+	getEmployeeDetails: function(req, res, next) {
+		var self = this
+		model.setDB(req.db)
+		var customQueryJSON = self.getQueryParam(req)
+		model.getProjectedEmployeeDetails(function (err, data) {
+			if (err) {
+				res.sendStatus(500)
+			} else {
+				if (data.length !== 0) {
+					res.sendStatus(200).end()
+				} else {
+					res.sendStatus(500)
+				}
+			}
+		}, customQueryJSON,
+		{
+			empId: 1,
+		})
+	},
+	renderEmployeeDetails: function (req, res, next) {
+		var self = this
+		model.setDB(req.db)
+		var customQueryJSON = self.getQueryParam(req)
+		model.getProjectedEmployeeDetails(function (err, data) {
+			if (err) {
+				res.sendStatus(500)
+			} else {
+				if (data.length !== 0) {
+					self.content = {
+						data: data
+					}
+					var v = new View(res, 'handymanList')
+					v.render(self.content)
+				} else {
+					res.sendStatus(500)
+				}
+			}
+		}, customQueryJSON,
+		{
+			empId: 1,
+			name: 1,
+			address: 1,
+			city: 1,
+			phnumber: 1,
+			aadhaarno: 1,
+			bankAccount: 1
+		})
+	},
+	checkEmpAvailability: function (req, res, next) {
+		var self = this
+		model.setDB(req.db)
+		model.getCollectionCount(function (err, count) {
+			if (err) {
+				res.sendStatus(500)
+			} else {
+				if (count !== 0) {
+					res.sendStatus(200)
+				} else {
+					res.sendStatus(500)
+				}
+			}
+		})
+	},
+	getAllEmployeeDetails: function (req, res, next) {
+		var self = this
+		model.setDB(req.db)
+		model.getProjectedEmployeeDetails(function (err, data) {
+			if (err) {
+				res.sendStatus(500)
+			} else {
+				if (data.length !== 0) {
+					self.content = {data: data}
+					var v = new View(res, 'handymanList')
+					v.render(self.content)
+				} else {
+					res.sendStatus(500)
+				}
+			}
+		}, {},
+		{
+			empId: 1,
+			name: 1,
+			address: 1,
+			city: 1,
+			phnumber: 1,
+			aadhaarno: 1,
+			bankAccount: 1
+		})
+	},
+	getQueryParam: function	(req) {
+		var customQueryJSON = {}
+		if (req.query.name) {
+			customQueryJSON = {
+				name: req.query.name
+			}
+		} else if (req.query.id) {
+			customQueryJSON = {
+				empId: req.query.id	
+			}
+		}
+		return customQueryJSON
 	},
 	renderAdminReg: function (isSuccessfullyInserted, req, res, self, empId) {
 		if (isSuccessfullyInserted) {

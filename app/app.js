@@ -66,6 +66,18 @@ mongo.connect(url, function (err, db) {
 		app.post('/cpanel', attachDB, function (req, res, next) {
 			CPanel.uploadEmployeeDetails(req, res, next)
 		})
+		app.get('/search', attachDB, function (req, res, next) {
+			CPanel.getEmployeeDetails(req, res, next)
+		})
+		app.get('/employee', attachDB, function (req, res, next) {
+			CPanel.renderEmployeeDetails(req, res, next)
+		})
+		app.get('/checkAvailability', attachDB, function (req, res, next) {
+			CPanel.checkEmpAvailability(req, res, next)
+		})
+		app.get('/searchAll', attachDB, function (req, res, next) {
+			CPanel.getAllEmployeeDetails(req, res, next)
+		})
 		app.all('/adminLogout', function (req, res, next) {
 			AdminLogout.run(req, res, next)
 		})

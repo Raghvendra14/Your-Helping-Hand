@@ -106,16 +106,18 @@
             </thead>
             <!-- table body-->
             <tbody>
+              {{#data}}
               <tr>
-                <td>1234</td><!-- Id-->
-                <td>myname</td><!-- Name-->
-                <td>an address</td><!-- Address-->
-                <th>a city</th><!--city-->
-                <td>123456789</td><!-- Phn number-->
-                <th>aadhaar</th><!--Id proof-->
-                <th>Bank acc no.</th><!--bank account number-->
+                <td>{{empId}}</td><!-- Id-->
+                <td>{{name}}</td><!-- Name-->
+                <td>{{address}}</td><!-- Address-->
+                <th>{{city}}</th><!--city-->
+                <td>{{phnumber}}</td><!-- Phn number-->
+                <th>{{aadhaarno}}</th><!--Id proof-->
+                <th>{{bankAccount}}</th><!--bank account number-->
                 <td><button class="btn btn-danger">Remove</button></td>
               </tr>
+              {{/data}}
             </tbody>
           </table>
         </div>

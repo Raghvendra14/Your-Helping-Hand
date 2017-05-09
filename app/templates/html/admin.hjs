@@ -52,9 +52,12 @@
     <!-- These links are not working without CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.min.js"></script>
-    <script src="../js/UploadForm.js"></script>
+    <script src="../scripts/modules/FormSubmitModule.js"></script>
+    <script src="../scripts/controllers/UploadForm.js"></script>
+    <script src="../scripts/controllers/SearchEmployee.js"></script>
+    <script src="../scripts/controllers/SearchAllEmployee.js"></script>
   </head>
-  <body>
+  <body ng-app="FormUpload">
     <!-- navbar -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
@@ -92,7 +95,7 @@
           <p>
             <div class="collapse" id="collapseform1">
               <div class="card card-block">
-                <form data-toggle="validator" id = "submitForm" method="post" role="form" style="display: block;" ng-app="FormUpload" ng-controller="formUploadCntrl">
+                <form data-toggle="validator" id = "submitForm" method="post" role="form" style="display: block;" ng-controller="formUploadCntrl">
                   <!-- full name-->
                   <div class="form-group has-feedback">
                     <input type="text" name="fullname" ng-model="fullname" pattern="^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$" id="Name" tabindex="1" class="form-control" placeholder="full name" value="" required>
@@ -172,7 +175,7 @@
                       </div>
                     </div>
                   </div>
-                  <span style="color:green;" ng-bind="success">Hello</span>
+                  <span style="color:green;" ng-bind="success"></span>
                   <span style="color:red;" ng-bind="err"></span>
                 </form>
               </div>
@@ -183,37 +186,39 @@
       </div>
       <hr>
       <!-- search handyman-->
-      <div class="row">
+      <div class="row" ng-controller="searchEmployeeCntrl">
         <div class="col-md-4 col-xs-12">
           <h3>Look for handyman</h3>
         </div>
         <div class="col-md-4 col-xs-12">
-          <form action="" method="post" role="form" style="display: block;">
+          <form role="form" style="display: block;">
             <div class="input-group form-group">
               <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-              <input type="text" class="form-control" placeholder="Search by name">
+              <input type="text" class="form-control" ng-model="searchByName" placeholder="Search by name">
             </div>
-            <button class="btn btn-primary">Search</button>
+            <button class="btn btn-primary" ng-click="submit(searchByName)" ng-disabled="!searchByName">Search</button>
+            <span style="color:red;" ng-bind="errorSearchByName">Error here</span>
           </form>
         </div>
         <div class="col-md-4 col-xs-12">
-          <form action="" method="post" role="form" style="display: block;">
+          <form role="form" style="display: block;">
             <div class="input-group form-group">
               <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-              <input type="text" class="form-control" placeholder="Search by ID">
+              <input type="text" class="form-control" placeholder="Search by ID" ng-model="searchById">
             </div>
-            <button class="btn btn-primary">Search</button>
+            <button class="btn btn-primary" ng-click="submit(searchById)" ng-disabled="!searchById">Search</button>
+            <span style="color:red;" ng-bind="errorSearchById">Error here</span>
           </form>
         </div>
       </div>
       <hr>
       <!-- Handyman list-->
-      <div class="row">
+      <div class="row" ng-controller="searchAllEmployeeCntrl">
         <div class="col-md-4 col-xs-12">
           <h3>List of Handyman</h3>
         </div>
         <div class="col-md-8 col-xs-12">
-          <button class="btn btn-primary" type="button">Go!</button>
+          <button class="btn btn-primary" type="button" ng-click="search()">Go!</button>
         </div>
       </div>
     </div>

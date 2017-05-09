@@ -37,5 +37,8 @@ module.exports = model.extend({
 	},
 	remove: function(ID, callback) {
 		// write remove code here
+	},
+	getCollectionCount: function(callback) {
+		this.employee_detail_collection().count(callback)
 	}
 })

@@ -1,8 +1,8 @@
 var s3 = require('s3'),
 	s3Client = s3.createClient({
 		s3Options: {
-			accessKeyId: "AKIAIFSARA4FE4VGN6DA",
-			secretAccessKey: "pe2qu+WHOht67R78JWAjFpBlXUQCV4Iqb2izt/nJ",
+			accessKeyId: "Enter your access key here",
+			secretAccessKey: "Enter your secret key here",
 			region: "us-west-1"
 		}
 	})
