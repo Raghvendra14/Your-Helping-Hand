@@ -13,8 +13,6 @@ module.exports = BaseController.extend({
 		} else {
 			res.redirect('/login')
 		}
-		
-		// handle edits in profile here
 	},
 	getUserDetails: function(req, res, self) {
 		if (req.session.username) {
@@ -37,6 +35,24 @@ module.exports = BaseController.extend({
 		} else {
 			self.renderLogin(res, self)
 		}
+	},
+	edit: function (req, res, next) {
+		model.setDB(req.db)
+		model.updateUserDetails(function (err, results) {
+			if (err) {
+				res.sendStatus(500)
+			} else {
+				res.sendStatus(200)
+			}
+		}, {
+			username: req.session.username
+		}, {
+			$set: {
+				address: req.body.address,
+				pincode: req.body.pincode,
+				phnumber: req.body.phnumber
+			}
+		})
 	},
 	renderLogin: function(res, self) {
 		var v = new View(res, 'login-reg')

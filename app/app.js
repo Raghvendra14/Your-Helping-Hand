@@ -51,6 +51,9 @@ mongo.connect(url, function (err, db) {
 		app.all('/profile/:id', attachDB, function (req, res, next) {
 			Profile.run(req, res, next)
 		})
+		app.all('/edit', attachDB, function (req, res, next) {
+			Profile.edit(req, res, next)
+		})
 		app.get('/logout', function (req, res, next) {
 			Logout.run(req, res, next)
 		})

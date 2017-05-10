@@ -14,8 +14,8 @@ module.exports = model.extend({
 	insertCategoryData: function(category, data, callback) {
 		this.service_collection(category).insertOne(data, callback)
 	},
-	update: function(data, callback) {
-		// write update code here
+	updateUserDetails: function(callback, query, data) {
+		this.user_detail_collection().updateOne(query, data, callback)
 	},
 	getLgCredentials: function(callback, query) {
 		this.lg_cred_collection().find(query).toArray(callback)

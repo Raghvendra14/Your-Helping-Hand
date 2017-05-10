@@ -37,7 +37,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.min.js"></script>
     <script>
       var app = angular.module('fileUpload', ['ngFileUpload']);
-      app.controller('uploadFilesCtrl', ['$scope', 'Upload', '$timeout', function ($scope, Upload, $timeout) {
+      app.controller('uploadFilesCtrl', ['$scope', 'Upload', '$timeout', '$window', function ($scope, Upload, $timeout, $window) {
         $scope.uploadFiles = function (file, errFiles) {
           $scope.f = file;
           $scope.errFile = errFiles && errFiles[0];
@@ -51,6 +51,7 @@
               $timeout (function() {
                 file.result = response.data;
               });
+              $window.location.reload()
             }, function (response) {
               if (response.status > 0)
                 $scope.errorMsg = response.status + ': ' + response.data;
@@ -59,6 +60,22 @@
             });
           }
         }
+      }]);
+      app.controller('editFormCntrl', ['$scope', '$http', '$window', function($scope, $http, $window) {
+          $scope.editSubmit = function() {
+            var data = {
+              address: $scope.editAddress,
+              pincode: $scope.editPincode,
+              phnumber: $scope.editPhnumber
+            }
+            $http.post('/edit', data)
+            .then(function (response) {
+              $scope.editError = ''
+              $window.location.reload()
+            }, function (response) {
+              $scope.editError = 'Sorry, couldn\'t edit. Please try again'
+            });
+          }
       }]);
     </script>
     <style type="text/css">
@@ -99,7 +116,7 @@
       }
     </style>
   </head>
-  <body ng-app="fileUpload" ng-controller="uploadFilesCtrl">
+  <body ng-app="fileUpload">
     <!-- navbar -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
@@ -123,7 +140,7 @@
           <h4>My Details</h4>
         </div>
         <div class="card-block">
-          <div class="text-center">
+          <div class="text-center" ng-controller="uploadFilesCtrl">
             <!--User pic --> <!--User Profile picture and User name -->
             <img class="img-responsive rounded mx-auto d-block img-thumbnail img-circle" src="{{profilePic}}" alt="" style="width: 150px; height: 150px" onerror="this.src='../img/default.png'"><br><br>
             <label class="btn btn-default btn-file">
@@ -148,7 +165,7 @@
         </div>
         <div class="card-header">
           <!-- in case of editing the details, the updated details will be displayed-->
-          <a href="#CollapseEdit" data-toggle="collapse" aria-expanded="false" aria-controls="CollapseEdit"><h4>Edit<span style="float: right; font-size: 80%; color: red;">error message here</span></h4></a> 
+          <a href="#CollapseEdit" data-toggle="collapse" aria-expanded="false" aria-controls="CollapseEdit"><h4>Edit</h4></a> 
         </div>
         <div class="collapse" id="CollapseEdit">
           <div class="container center-block">
@@ -161,36 +178,39 @@
                     </div>
                     <hr>
                   </div>
-                  <div class="panel-body">
+                  <div class="panel-body" ng-controller="editFormCntrl">
                     <div class="row">
                       <div class="col-lg-12 col-xs-12">
-                        <form data-toggle="validator" action="/edit" method="post" role="form" style="display: block;">
+                        <form data-toggle="validator" role="form" style="display: block;" name="editform">
                           <!--address-->
                           <div class="form-group has-feedback">
-                            <input type="text" pattern="^[a-zA-Z0-9\s,/-]*$" name="address" id="address" tabindex="1" class="form-control" placeholder="address" value="" required>
+                            <input type="text" pattern="^[a-zA-Z0-9\s,/-]*$" name="address" id="address" tabindex="1" class="form-control" placeholder="address" value="" ng-model="editAddress" required>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <div class="help-block with-errors"></div>
                           </div>
                           <!--pin number-->
                           <div class="form-group has-feedback">
-                            <input type="text" name="pincode" id="pincode" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="6" maxlength="6" class="form-control" placeholder="pincode" value="" data-error="Invalid Pin code!" required>
+                            <input type="text" name="pincode" id="pincode" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="6" maxlength="6" class="form-control" placeholder="pincode" value="" data-error="Invalid Pin code!" ng-model="editPincode" required>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <div class="help-block with-errors"></div>
                           </div>
                           <!-- phone no-->
                           <div class="form-group has-feedback">
-                            <input type="text" name="phnumber" id="phnumber" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="10" maxlength="10" class="form-control" placeholder="phone number" value="" data-error="Invalid Phone Number!" required>
+                            <input type="text" name="phnumber" id="phnumber" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="10" maxlength="10" class="form-control" placeholder="phone number" value="" data-error="Invalid Phone Number!" ng-model="editPhnumber" required>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <div class="help-block with-errors"></div>
                           </div>
                           <div class="form-group">
                              <div class="row">
                               <div class="col-sm-6 col-sm-offset-3">
-                                <input type="submit" name="edit-submit" id="edit-submit" tabindex="4" class="form-control btn btn-primary" value="Edit">
+                                <input type="submit" name="edit-submit" id="edit-submit" tabindex="4" class="form-control btn btn-primary" value="Edit" ng-disabled="editform.$invalid" ng-click="editSubmit()">
                               </div>
                             </div>
                           </div>
                         </form>
+                      </div>
+                      <div style="text-align: center;">
+                       <span style="color: red;" ng-bind="editError"><!-- Error message here --></span>
                       </div>
                     </div>
                   </div>
