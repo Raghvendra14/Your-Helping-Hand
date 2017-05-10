@@ -2,13 +2,14 @@ var BaseController = require('./Base'),
 	View = require('../views/Base'),
 	model = new (require('../models/ContentModel')),
 	shortId = require('shortid'),
-	awsService = require('../services/AWSS3Upload')
+	awsService = require('../services/AWSS3Upload'),
+	awsDeleteService = require('../services/AWSS3Delete')
 
 module.exports = BaseController.extend({
 	name: 'cpanel',
 	run: function (req, res, next) {
-		if (req.session.yhhadmin) {
-			var self = this
+		var self = this
+		if (self.authorize(req)) {
 			var v = new View(res, 'admin')
 			self.content = {
 				adminname: req.session.adminname
@@ -17,6 +18,13 @@ module.exports = BaseController.extend({
 			
 		} else {
 			res.redirect('/admin')
+		}
+	},
+	authorize: function(req) {
+		if (req.session.yhhadmin) {
+			return true
+		} else {
+			return false
 		}
 	},
 	uploadEmployeeDetails: function (req, res, next) {
@@ -98,32 +106,37 @@ module.exports = BaseController.extend({
 	},
 	renderEmployeeDetails: function (req, res, next) {
 		var self = this
-		model.setDB(req.db)
-		var customQueryJSON = self.getQueryParam(req)
-		model.getProjectedEmployeeDetails(function (err, data) {
-			if (err) {
-				res.sendStatus(500)
-			} else {
-				if (data.length !== 0) {
-					self.content = {
-						data: data
-					}
-					var v = new View(res, 'handymanList')
-					v.render(self.content)
-				} else {
+		if (self.authorize(req)) {
+			model.setDB(req.db)
+			var customQueryJSON = self.getQueryParam(req)
+			model.getProjectedEmployeeDetails(function (err, data) {
+				if (err) {
 					res.sendStatus(500)
+				} else {
+					if (data.length !== 0) {
+						self.content = {
+							data: data
+						}
+						var v = new View(res, 'handymanList')
+						v.render(self.content)
+					} else {
+						res.sendStatus(500)
+					}
 				}
-			}
-		}, customQueryJSON,
-		{
-			empId: 1,
-			name: 1,
-			address: 1,
-			city: 1,
-			phnumber: 1,
-			aadhaarno: 1,
-			bankAccount: 1
-		})
+			}, customQueryJSON,
+			{
+				empId: 1,
+				name: 1,
+				address: 1,
+				city: 1,
+				phnumber: 1,
+				aadhaarno: 1,
+				bankAccount: 1,
+				category: 1
+			})
+		} else {
+			res.redirect('/admin')
+		}
 	},
 	checkEmpAvailability: function (req, res, next) {
 		var self = this
@@ -133,7 +146,7 @@ module.exports = BaseController.extend({
 				res.sendStatus(500)
 			} else {
 				if (count !== 0) {
-					res.sendStatus(200)
+					res.sendStatus(200).end()
 				} else {
 					res.sendStatus(500)
 				}
@@ -142,28 +155,62 @@ module.exports = BaseController.extend({
 	},
 	getAllEmployeeDetails: function (req, res, next) {
 		var self = this
-		model.setDB(req.db)
-		model.getProjectedEmployeeDetails(function (err, data) {
-			if (err) {
-				res.sendStatus(500)
-			} else {
-				if (data.length !== 0) {
-					self.content = {data: data}
-					var v = new View(res, 'handymanList')
-					v.render(self.content)
-				} else {
+		if (self.authorize(req)) {
+			model.setDB(req.db)
+			model.getProjectedEmployeeDetails(function (err, data) {
+				if (err) {
 					res.sendStatus(500)
+				} else {
+					if (data.length !== 0) {
+						self.content = {
+							data: data
+						}
+						var v = new View(res, 'handymanList')
+						v.render(self.content)
+					} else {
+						res.sendStatus(500)
+					}
+				}
+			}, {},
+			{
+				empId: 1,
+				name: 1,
+				address: 1,
+				city: 1,
+				phnumber: 1,
+				aadhaarno: 1,
+				bankAccount: 1,
+				category: 1
+			})
+		} else {
+			res.redirect('/admin')
+		}
+	},
+	removeServiceDetails: function (req, res, next) {
+		var self = this
+		model.setDB(req.db)
+		model.removeServiceData(function (err, results) {
+			var path = 'employeepics/' + req.params.id
+			awsDeleteService.deleteFiles(path, function() {
+				return next()
+			})
+		}, {
+			empId: req.params.id.toString()
+		}, req.query.cg)
+	},
+	removeEmployeeDetails: function (req, res, next) {
+		var self = this
+		model.setDB(req.db)
+		model.removeEmployeeData(function (err, results) {
+			if (!err) {
+				if (req.query.as == 1) {
+					res.redirect('/cpanel')
+				} else if (req.query.as > 1) {
+					res.redirect('/searchAll')
 				}
 			}
-		}, {},
-		{
-			empId: 1,
-			name: 1,
-			address: 1,
-			city: 1,
-			phnumber: 1,
-			aadhaarno: 1,
-			bankAccount: 1
+		}, {
+			empId: req.params.id.toString()
 		})
 	},
 	getQueryParam: function	(req) {

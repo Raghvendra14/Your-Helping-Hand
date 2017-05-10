@@ -197,7 +197,7 @@
               <input type="text" class="form-control" ng-model="searchByName" placeholder="Search by name">
             </div>
             <button class="btn btn-primary" ng-click="submit(searchByName)" ng-disabled="!searchByName">Search</button>
-            <span style="color:red;" ng-bind="errorSearchByName">Error here</span>
+            <span style="color:red;" ng-bind="errorSearchByName"><!--Error here --></span>
           </form>
         </div>
         <div class="col-md-4 col-xs-12">
@@ -207,7 +207,7 @@
               <input type="text" class="form-control" placeholder="Search by ID" ng-model="searchById">
             </div>
             <button class="btn btn-primary" ng-click="submit(searchById)" ng-disabled="!searchById">Search</button>
-            <span style="color:red;" ng-bind="errorSearchById">Error here</span>
+            <span style="color:red;" ng-bind="errorSearchById"><!--Error here --></span>
           </form>
         </div>
       </div>
@@ -219,6 +219,7 @@
         </div>
         <div class="col-md-8 col-xs-12">
           <button class="btn btn-primary" type="button" ng-click="search()">Go!</button>
+          <span style="color:red;" ng-bind="errorSearchAll"><!--Error here --></span>
         </div>
       </div>
     </div>

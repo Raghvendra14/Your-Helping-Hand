@@ -115,7 +115,7 @@
                 <td>{{phnumber}}</td><!-- Phn number-->
                 <th>{{aadhaarno}}</th><!--Id proof-->
                 <th>{{bankAccount}}</th><!--bank account number-->
-                <td><button class="btn btn-danger">Remove</button></td>
+                <td><a href="/remove/{{empId}}/?as={{data.length}}&amp;cg={{category}}"><button class="btn btn-danger">Remove</button></a></td>
               </tr>
               {{/data}}
             </tbody>

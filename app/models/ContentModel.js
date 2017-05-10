@@ -35,8 +35,11 @@ module.exports = model.extend({
 	getServiceInfo: function(callback, query, category) {
 		this.service_collection(category).find(query).toArray(callback)
 	},
-	remove: function(ID, callback) {
-		// write remove code here
+	removeEmployeeData: function(callback, query) {
+		this.employee_detail_collection().deleteOne(query, callback)
+	},
+	removeServiceData: function(callback, query, category) {
+		this.service_collection(category).deleteOne(query, callback)
 	},
 	getCollectionCount: function(callback) {
 		this.employee_detail_collection().count(callback)

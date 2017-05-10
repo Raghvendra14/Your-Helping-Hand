@@ -5,8 +5,8 @@ angular.module('FormUpload').controller('searchAllEmployeeCntrl', ['$scope', '$h
 			$scope.errorSearchAll = ''
 			$window.location = '/searchAll'
 		}, function (response) {
-			console.log('Error occured')
 			$scope.errorSearchAll = 'No employee details are found'
+			console.log('Error has occured')
 		});
 	}
 }]);

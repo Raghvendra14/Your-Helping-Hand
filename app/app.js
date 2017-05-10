@@ -78,6 +78,11 @@ mongo.connect(url, function (err, db) {
 		app.get('/searchAll', attachDB, function (req, res, next) {
 			CPanel.getAllEmployeeDetails(req, res, next)
 		})
+		app.all('/remove/:id', attachDB, function (req, res, next) {
+			CPanel.removeServiceDetails(req, res, next)
+		}, function (req, res, next) {
+			CPanel.removeEmployeeDetails(req, res, next)
+		})
 		app.all('/adminLogout', function (req, res, next) {
 			AdminLogout.run(req, res, next)
 		})
