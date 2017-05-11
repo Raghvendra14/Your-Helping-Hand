@@ -90,7 +90,7 @@
               <p class="card-text"><!--Pincode-->{{userPincode}}</p>
               <p class="card-text"><!--Phone number-->{{userPhnumber}}</p>
               <p class="card-text"><!--Date and Time-->{{time}}</p> 
-              <p class="card-text">Schedule ID<!-- Schedule ID(known only to the user)--></p>
+              <p class="card-text"><!-- Schedule ID(known only to the user)-->{{scheduleId}}</p>
             </div>
           </div>
         </div>

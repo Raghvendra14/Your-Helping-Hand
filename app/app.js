@@ -16,7 +16,8 @@ var express = require('express'),
 	CPanel = require('./controllers/CPanel'),
 	AdminLogout = require('./controllers/AdminLogout'),
 	Schedule = require('./controllers/Schedule'),
-	AppointmentConf = require('./controllers/AppointmentConfirmation')
+	AppointmentConf = require('./controllers/AppointmentConfirmation'),
+	FinalizeSchedule = require('./controllers/FinalizeSchedule')
 
 app.set('views', __dirname + '/templates/html')
 app.set('view engine', 'hjs')
@@ -91,6 +92,8 @@ mongo.connect(url, function (err, db) {
 		})
 		app.post('/schedule', attachDB, function (req, res, next) {
 			Schedule.run(req, res, next)
+		}, function (req, res, next) {
+			FinalizeSchedule.run(req, res, next)
 		}, function (req, res) {
 			AppointmentConf.run(req, res)
 		})

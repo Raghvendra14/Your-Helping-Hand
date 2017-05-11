@@ -39,7 +39,8 @@ module.exports = BaseController.extend({
 											empCategory: req.body.category,
 											time: req.body.calender,
 											description: req.body.servicedesc,
-											paymentMode: req.body.paymentMode
+											paymentMode: req.body.paymentMode,
+											scheduleId: req.scheduleId
 										}
 										var v = new View(res, 'orderConfirm')
 										v.render(self.content)

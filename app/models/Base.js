@@ -32,5 +32,9 @@ module.exports.prototype = {
 	},
 	service_collection: function(category) {
 		return this._serviceCollection = this.db.collection(category)
+	},
+	appointment_collection: function() {
+		if (this._appCollection) return this._appCollection
+		return this._appCollection = this.db.collection('emp_app_details')
 	}
 }

@@ -76,7 +76,7 @@ module.exports = BaseController.extend({
 							.then(function(distanceArray) {
 								console.log('Distance Array: \n')
 								console.log(distanceArray)
-								var smallestDistance = 10.0 // distance should be less than 10 kilometers for any employee to get assigned the task
+								var smallestDistance = 15.0 // distance should be less than 15 kilometers for any employee to get assigned the task
 								var bestAvailableEmpId = null // Best Employee Id
 								for (var object of distanceArray) {
 									if (object.distance <= smallestDistance) {
@@ -84,9 +84,16 @@ module.exports = BaseController.extend({
 										bestAvailableEmpId = object.empId
 									}
 								}
-								console.log('Best Id with minimum distance of ' + smallestDistance.toString() + ' is ' + bestAvailableEmpId)
-								req.empId = bestAvailableEmpId
-								// res.redirect('/schedule?assignId=' + bestAvailableEmpId)
+								if (bestAvailableEmpId === null) {
+									console.log('Sorry, no handyman available nearby.')
+									req.statusMessage = true
+								} else {
+									console.log('Best Id with minimum distance of ' + smallestDistance.toString() + ' is ' + bestAvailableEmpId)
+									req.empId = bestAvailableEmpId
+									req.userAddress = userLocation[0].address
+									req.pincode = userLocation[0].pincode
+									// res.redirect('/schedule?assignId=' + bestAvailableEmpId)
+								}
 								return next()
 							})
 						}
