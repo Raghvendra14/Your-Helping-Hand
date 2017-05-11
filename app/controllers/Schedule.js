@@ -1,5 +1,4 @@
 var BaseController = require('./Base'),
-	// View = require('../views/Base'),
 	// 'new' keyword is used to generate a new 'this' value and invokes requires as a constructor
 	model = new (require('../models/ContentModel')),
 	googleMapsWS = require('../services/GoogleDistanceMatrix')
@@ -18,46 +17,32 @@ module.exports = BaseController.extend({
 			req.session.username &&
 			req.body.paymentMode) {
 			self.checkServiceAvailability(req, function (isServiceNotAvailable, data) {
-				if (isServiceNotAvailable) {
-					// self.renderProfile(isServiceNotAvailable, res, self)
+				if (isServiceNotAvailable !== null) {
 					req.statusMessage = isServiceNotAvailable
 					return next()
-				// } else if (isServiceNotAvailable === false) {
-				// 	// self.renderProfile(isServiceNotAvailable, res, self)
-				// 	req.statusMessage = isServiceNotAvailable
 				} else if (data !== null) {
 					self.fetchUserLocation(req, function (isUserLocationNotAvailable, userLocation) {
-						if (isUserLocationNotAvailable) {
-							// self.renderProfile(isUserLocationNotAvailable, res, self)
+						if (isUserLocationNotAvailable !== null) {
 							req.statusMessage = isUserLocationNotAvailable
 							return next()
-						// } else if (isUserLocationNotAvailable === false) {
-						// 	// self.renderProfile(isUserLocationNotAvailable, res, self)
-						// 	req.statusMessage = isUserLocationNotAvailable
 						} else if (userLocation!== null) {
 							console.log(userLocation)
 							var userFullLoc = userLocation[0].address + ', ' + userLocation[0].pincode
 							var promises = data.map(function (list) {
 								return new Promise(function(resolve, reject) {
 									self.fetchEmployeeLocation(list, function (isEmpLocNotAvailable, employeeLocation) {
-										if (isEmpLocNotAvailable) {
-											// self.renderProfile(isEmpLocNotAvailable, res, self)
+										if (isEmpLocNotAvailable !== null) {
 											req.statusMessage = isEmpLocNotAvailable
 											return next()
-										// } else if (isEmpLocNotAvailable === false) {
-										// 	// self.renderProfile(isEmpLocNotAvailable, res, self)
-										// 	req.statusMessage = isEmpLocNotAvailable
 										} else if (employeeLocation !== null) {
 											console.log('Returned location value: \n')
 											console.log(employeeLocation)
 											var empFullLoc = employeeLocation[0].address + ', ' + employeeLocation[0].city + ', ' + employeeLocation[0].country + ', ' + employeeLocation[0].pincode
 											googleMapsWS.getDistance(userFullLoc, empFullLoc, function (response) {
 												if (response === null) {
-													// self.renderProfile(false, res, self)
 													req.statusMessage = false
 													return reject()
 												} else {
-													// console.log(response)
 													var distance = parseFloat(response.rows[0].elements[0].distance.text.toString().split(' ')[0])
 													console.log('The distance in kilometers are:  ')
 													console.log(distance)
@@ -92,7 +77,6 @@ module.exports = BaseController.extend({
 									req.empId = bestAvailableEmpId
 									req.userAddress = userLocation[0].address
 									req.pincode = userLocation[0].pincode
-									// res.redirect('/schedule?assignId=' + bestAvailableEmpId)
 								}
 								return next()
 							})
@@ -160,18 +144,4 @@ module.exports = BaseController.extend({
 			pincode: 1
 		})
 	}
-	// ,
-	// /* Fix this code for any error case */
-	// renderProfile: function(isServiceAvailable, res, self) {
-	// 	var v = new View(res, 'profile')
-	// 	self.content = {}
-	// 	if (isServiceAvailable) {
-	// 		self.content.noServiceAvailable = 'Sorry, No service available at this moment. Please try again later.'
-	// 		self.content.err = ''
-	// 	} else {
-	// 		self.content.noServiceAvailable = ''
-	// 		self.content.err = 'Some error occured. Please try again.'
-	// 	}
-	// 	v.render(self.content)
-	// }
 })

@@ -77,6 +77,29 @@
             });
           }
       }]);
+      app.controller('scheduleAppCntrl', ['$scope', '$http', '$window', function($scope, $http, $window) {
+        $scope.schedule = function() {
+          var data = {
+            category: $scope.category,
+            calender: $scope.calender,
+            servicedesc: $scope.servicedesc,
+            paymentMode: $scope.paymentMode
+          }
+          $http.post('/schedule', data)
+          .then(function (response) {
+            if (response.data.scheduleId) {
+              $scope.errorSchedule = ''
+              $window.location = '/appConfirmation/?id=' + response.data.scheduleId
+            }
+          }, function (response) {
+            if (response.data.statusBool === true) {
+              $scope.errorSchedule = 'Sorry, no handyman are available right now. Please try again later.' 
+            } else if (response.data.statusBool === false) {
+              $scope.errorSchedule = 'Some error occured. Please try again.'
+            }
+          });
+        }
+      }]);
     </script>
     <style type="text/css">
       body{
@@ -220,7 +243,7 @@
           </div> 
         </div>
         <div class="card-header">
-          <a href="#CollapseSchedule" data-toggle="collapse" aria-expanded="false" aria-controls="CollapseSchedule"><h4>Schedule appointment<span style="float: right; font-size: 80%; color: red;">error message here</span></h4></a> 
+          <a href="#CollapseSchedule" data-toggle="collapse" aria-expanded="false" aria-controls="CollapseSchedule"><h4>Schedule appointment</h4></a> 
         </div>
         <div class="collapse" id="CollapseSchedule">
           <div class="card-block">
@@ -234,13 +257,13 @@
                       </div>
                       <hr>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" ng-controller="scheduleAppCntrl">
                       <div class="row">
                         <div class="col-lg-12 col-xs-12">
-                          <form data-toggle="validator" action="/schedule" method="post" role="form" style="display: block;">
+                          <form data-toggle="validator" method="post" role="form" style="display: block;" name="scheduleForm">
                             <div class="form-group">
-                              <select class="form-control selectpicker" name="category">
-                                <option data-hidden="true">---Choose Service---</option>
+                              <select class="form-control selectpicker" name="category" ng-model="category">
+                                <option data-hidden="true" value="" disabled selected>---Choose Service---</option>
                                 <option>Electrician</option>
                                 <option>Plumber</option>
                                 <option>House maid</option>
@@ -248,7 +271,7 @@
                               </select>
                             </div>
                             <div class="form-group has-feedback">
-                              <input type="text" id="datetimepicker" name="calender" class="form-control" placeholder="DATE TIME" required>  
+                              <input type="text" id="datetimepicker" name="calender" class="form-control" placeholder="DATE TIME" ng-model="calender" required>  
                               <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                               <div class="help-block with-errors"></div>
                             </div>
@@ -267,13 +290,13 @@
                               </div>
                             </div>
                             <div class="form-group has-feedback">
-                              <textarea class="form-control" name="servicedesc" placeholder="Description of the issue" data-maxlength = "100" minlength = "12" required></textarea>
+                              <textarea class="form-control" name="servicedesc" placeholder="Description of the issue" data-maxlength = "100" minlength = "12" ng-model="servicedesc" required></textarea>
                               <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                               <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
-                              <select class="form-control selectpicker" name="paymentMode">
-                                <option data-hidden="true">---Choose Payment Mode---</option>
+                              <select class="form-control selectpicker" name="paymentMode" ng-model="paymentMode">
+                                <option data-hidden="true" value="" disabled selected>---Choose Payment Mode---</option>
                                 <option>Cash on delivery (COD)</option>
                               </select>
                             </div>
@@ -281,12 +304,14 @@
                               <div class="row">
                                 <div class="col-sm-6 col-sm-offset-3">
                                   <!-- Button -->
-                                  <input type="submit" class="form-control btn btn-primary" value="Schedule" tabindex="3">
+                                  <input type="submit" class="form-control btn btn-primary" value="Schedule" tabindex="3" ng-disabled="scheduleForm.$invalid" ng-click="schedule()">
                                 </div>
                               </div>
                             </div>
                           </form>
                         </div>
+                         <div style="text-align: center;">
+                       <span style="color: red;" ng-bind="errorSchedule"><!-- Error message here --></span>
                       </div>
                     </div>
                   </div>

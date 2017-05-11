@@ -40,7 +40,6 @@ module.exports = BaseController.extend({
 			})
 			
 		} else {
-			req.statusMessage = false	
 			return next()
 		}
 	},
@@ -99,7 +98,7 @@ module.exports = BaseController.extend({
 						if (err) {
 							callback(true)
 						} else {
-							console.log(object.insertedCount, 'appointemnt inserted.')
+							console.log(object.insertedCount + " appointment inserted.")
 							callback(false)
 						}
 					})

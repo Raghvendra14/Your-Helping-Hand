@@ -97,6 +97,9 @@ mongo.connect(url, function (err, db) {
 		}, function (req, res) {
 			AppointmentConf.run(req, res)
 		})
+		app.get('/appConfirmation', attachDB, function (req, res, next) {
+			AppointmentConf.displayConfirmation(req, res, next)
+		})
 		app.listen(3000, function() {
 			console.log(
 				'Successfully connected to mongodb://localhost:27017' +
