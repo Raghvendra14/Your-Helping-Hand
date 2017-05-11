@@ -36,7 +36,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.min.js"></script>
     <script>
-      var app = angular.module('fileUpload', ['ngFileUpload']);
+      var app = angular.module('profileModule', ['ngFileUpload']);
       app.controller('uploadFilesCtrl', ['$scope', 'Upload', '$timeout', '$window', function ($scope, Upload, $timeout, $window) {
         $scope.uploadFiles = function (file, errFiles) {
           $scope.f = file;
@@ -61,7 +61,7 @@
           }
         }
       }]);
-      app.controller('editFormCntrl', ['$scope', '$http', '$window', function($scope, $http, $window) {
+      app.controller('editFormCntrl', ['$scope', '$http', '$window', function ($scope, $http, $window) {
           $scope.editSubmit = function() {
             var data = {
               address: $scope.editAddress,
@@ -77,7 +77,7 @@
             });
           }
       }]);
-      app.controller('scheduleAppCntrl', ['$scope', '$http', '$window', function($scope, $http, $window) {
+      app.controller('scheduleAppCntrl', ['$scope', '$http', '$window', function ($scope, $http, $window) {
         $scope.schedule = function() {
           var data = {
             category: $scope.category,
@@ -139,7 +139,7 @@
       }
     </style>
   </head>
-  <body ng-app="fileUpload">
+  <body ng-app="profileModule">
     <!-- navbar -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
