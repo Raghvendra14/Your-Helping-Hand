@@ -25,6 +25,9 @@ module.exports = BaseController.extend({
 					var profilePic = "https://s3-us-west-1.amazonaws.com/yhhprofilepicfolder/userpics/" + 
 						req.session.username + "/profile/profilepic.jpg"
 					userData.profilePic = profilePic
+					res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+					res.setHeader("Pragma", "no-cache")
+					res.setHeader("Expires", "0")
 					var v = new View(res, 'profile')
 					v.render(userData)
 				}
@@ -39,6 +42,9 @@ module.exports = BaseController.extend({
 	edit: function (req, res, next) {
 		model.setDB(req.db)
 		model.updateUserDetails(function (err, results) {
+			res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+			res.setHeader("Pragma", "no-cache")
+			res.setHeader("Expires", "0")
 			if (err) {
 				res.sendStatus(500)
 			} else {
@@ -58,6 +64,9 @@ module.exports = BaseController.extend({
 		var v = new View(res, 'login-reg')
 		self.content = {}
 		self.content.retry = 'Error loading profile. Try Again!'
+		res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+		res.setHeader("Pragma", "no-cache")
+		res.setHeader("Expires", "0")
 		v.render(self.content)
 	}
 })

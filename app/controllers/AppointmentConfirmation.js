@@ -6,6 +6,9 @@ module.exports = BaseController.extend({
 	name: 'appointmentconfir',
 	content: null,
 	run: function (req, res) {
+		res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+		res.setHeader("Pragma", "no-cache")
+		res.setHeader("Expires", "0")
 		if (req.empId) {
 			console.log('Confirmed Appointment')
 			var data = {
@@ -23,6 +26,9 @@ module.exports = BaseController.extend({
 	displayConfirmation: function (req, res, next) {
 		var self = this
 		model.setDB(req.db)
+		res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+		res.setHeader("Pragma", "no-cache")
+		res.setHeader("Expires", "0")
 		if (req.session.yourhelpinghand &&
 			req.session.yourhelpinghand === true &&
 			req.session.username && req.query.id) {

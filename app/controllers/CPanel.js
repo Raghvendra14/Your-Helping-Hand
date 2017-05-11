@@ -9,6 +9,9 @@ module.exports = BaseController.extend({
 	name: 'cpanel',
 	run: function (req, res, next) {
 		var self = this
+		res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+		res.setHeader("Pragma", "no-cache")
+		res.setHeader("Expires", "0")
 		if (self.authorize(req)) {
 			var v = new View(res, 'admin')
 			self.content = {
@@ -30,6 +33,9 @@ module.exports = BaseController.extend({
 	uploadEmployeeDetails: function (req, res, next) {
 		var JSONinfo = JSON.parse(req.body.info)
 		var self = this
+		res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+		res.setHeader("Pragma", "no-cache")
+		res.setHeader("Expires", "0")
 		if (req.session.yhhadmin && req.method === 'POST' &&
 			JSONinfo.fullname &&
 			JSONinfo.address &&
@@ -89,6 +95,9 @@ module.exports = BaseController.extend({
 		var self = this
 		model.setDB(req.db)
 		var customQueryJSON = self.getQueryParam(req)
+		res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+		res.setHeader("Pragma", "no-cache")
+		res.setHeader("Expires", "0")
 		model.getProjectedEmployeeDetails(function (err, data) {
 			if (err) {
 				res.sendStatus(500)
@@ -106,6 +115,9 @@ module.exports = BaseController.extend({
 	},
 	renderEmployeeDetails: function (req, res, next) {
 		var self = this
+		res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+		res.setHeader("Pragma", "no-cache")
+		res.setHeader("Expires", "0")
 		if (self.authorize(req)) {
 			model.setDB(req.db)
 			var customQueryJSON = self.getQueryParam(req)
@@ -141,6 +153,9 @@ module.exports = BaseController.extend({
 	checkEmpAvailability: function (req, res, next) {
 		var self = this
 		model.setDB(req.db)
+		res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+		res.setHeader("Pragma", "no-cache")
+		res.setHeader("Expires", "0")
 		model.getCollectionCount(function (err, count) {
 			if (err) {
 				res.sendStatus(500)
@@ -155,6 +170,9 @@ module.exports = BaseController.extend({
 	},
 	getAllEmployeeDetails: function (req, res, next) {
 		var self = this
+		res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+		res.setHeader("Pragma", "no-cache")
+		res.setHeader("Expires", "0")
 		if (self.authorize(req)) {
 			model.setDB(req.db)
 			model.getProjectedEmployeeDetails(function (err, data) {
@@ -201,6 +219,9 @@ module.exports = BaseController.extend({
 	removeEmployeeDetails: function (req, res, next) {
 		var self = this
 		model.setDB(req.db)
+		res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+		res.setHeader("Pragma", "no-cache")
+		res.setHeader("Expires", "0")
 		model.removeEmployeeData(function (err, results) {
 			if (!err) {
 				if (req.query.as == 1) {
