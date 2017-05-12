@@ -1,5 +1,4 @@
 var BaseController = require('./Base'),
-	View = require('../views/Base'),
 	model = new(require('../models/ContentModel'))
 
 module.exports = BaseController.extend({
@@ -7,8 +6,7 @@ module.exports = BaseController.extend({
 	run: function (req, res, next) {
 		var self = this
 		model.setDB(req.db)
-		if (req.method === 'POST' &&
-			req.body.username &&
+		if (req.body.username &&
 			req.body.email &&
 			req.body.fullname &&
 			req.body.address &&
@@ -57,7 +55,7 @@ module.exports = BaseController.extend({
 							req.session.yourhelpinghand = true
 							req.session.username = req.body.username
 							req.session.save()
-							res.redirect('/profile/' + req.body.username)
+							res.status(200).send(req.body.username)
 						}
 					})
 				}
@@ -79,25 +77,21 @@ module.exports = BaseController.extend({
 		}
 	},
 	renderRegister: function(isUsernameAlreadyTaken, isEmailAlreadyTaken, res, self) {
-		var v = new View(res, 'login_reg');
 		self.content = {}
-		if (isUsernameAlreadyTaken && isEmailAlreadyTaken) {
+		if (isUsernameAlreadyTaken === true && isEmailAlreadyTaken === true) {
 			self.content.usernameTaken = "Username already taken"
 			self.content.emailTaken = "Email Id already taken"
-			self.content.retry = ""
-		} else if (isUsernameAlreadyTaken) {
+		} else if (isUsernameAlreadyTaken === true && isEmailAlreadyTaken === false) {
 			self.content.usernameTaken = "Username already taken"
-			self.content.emailTaken = ""
-			self.content.retry = ""
-		} else if (isEmailAlreadyTaken) {
-			self.content.usernameTaken = ""
+			self.content.emailTaken = null
+		} else if (isUsernameAlreadyTaken === false && isEmailAlreadyTaken === true) {
+			self.content.usernameTaken = null
 			self.content.emailTaken = "Email Id already taken"
-			self.content.retry = ""
-		} else {
-			self.content.usernameTaken = ""
-			self.content.emailTaken = ""
+		} else if (isUsernameAlreadyTaken === false || isEmailAlreadyTaken === false) {
+			self.content.usernameTaken = null
+			self.content.emailTaken = null
 			self.content.retry = "Error during registration. Try Again!"
 		}
-		v.render(self.content)
+		res.status(404).send(self.content)
 	}
 })

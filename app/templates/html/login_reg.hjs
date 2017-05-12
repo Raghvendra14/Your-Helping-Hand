@@ -37,8 +37,12 @@
     <script src="../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/login-reg.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.9.0/validator.min.js"></script>
+    <!-- AngularJS Dependency -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="../scripts/modules/RegisterFormModule.js"></script>
+    <script src="../scripts/controllers/RegisterFormController.js"></script>
   </head>
-  <body>
+  <body ng-app="loginRegForm">
     <!--Navigation bar-->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
      
@@ -114,62 +118,62 @@
                       </div>
                     </div>
                   </form>
-                  <form data-toggle="validator" id="register-form" action="/register" method="post" role="form" style="display: none;">
+                  <form data-toggle="validator" id="register-form" method="post" role="form" style="display: none;" ng-controller="registerFormCntrl" name="registerForm">
                     <!-- username -->
                     <div class="form-group has-feedback">
-                      <input type="text" name="username" pattern="^[_A-z0-9]{1,}$" maxlength="15" id="username" tabindex="1" class="form-control" placeholder="username" value="" required>
+                      <input type="text" name="username" pattern="^[_A-z0-9]{1,}$" maxlength="15" id="username" tabindex="1" class="form-control" placeholder="username" value="" ng-model="username" required>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <div class="help-block with-errors"></div>
                       <!--error message like: "username already exists" -->
-                      <span><p style="color: red;">{{usernameTaken}}</p></span>
+                      <span><p style="color: red;" ng-bind="usernameTaken"><!-- Username Taken error here --></p></span>
                     </div>
                     <!-- email -->
                     <div class="form-group has-feedback">
-                      <input type="email" name="email" id="Email" tabindex="1" class="form-control" placeholder="email" value="" data-error="Email address is invalid" required>
+                      <input type="email" name="email" id="Email" tabindex="1" class="form-control" placeholder="email" value="" data-error="Email address is invalid" ng-model="email" required>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                      <div class="help-block with-errors"><!--error message like: "email already exists" -->
-                      <span><p style="color: red;">{{emailTaken}}</p></span></div>
+                      <div class="help-block with-errors"></div><!--error message like: "email already exists" -->
+                      <span><p style="color: red;" ng-bind="emailTaken"><!-- Email Taken error here --></p></span>
                     </div>
                     <!-- full name -->
                     <div class="form-group has-feedback">
-                      <input type="text" name="fullname" pattern="^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$" id="Name" tabindex="1" class="form-control" placeholder="full name" value="" required>
+                      <input type="text" name="fullname" pattern="^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$" id="Name" tabindex="1" class="form-control" placeholder="full name" value="" ng-model="fullname" required>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <div class="help-block with-errors"></div>
                     </div>
                     <!-- address -->
                     <div class="form-group has-feedback">
-                      <input type="text" pattern="^[a-zA-Z0-9\s,/-]*$" name="address" id="address" tabindex="1" class="form-control" placeholder="address" value="" required>
+                      <input type="text" pattern="^[a-zA-Z0-9\s,/-]*$" name="address" id="address" tabindex="1" class="form-control" placeholder="address" value="" ng-model="address" required>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <div class="help-block with-errors"></div>
                     </div>
                     <!-- pincode -->
                     <div class="form-group has-feedback">
-                      <input type="text" name="pincode" id="pincode" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="6" maxlength="6" class="form-control" placeholder="pincode" value="" data-error="Invalid Pin code!" required>
+                      <input type="text" name="pincode" id="pincode" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="6" maxlength="6" class="form-control" placeholder="pincode" value="" data-error="Invalid Pin code!" ng-model="pincode" required>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <div class="help-block with-errors"></div>
                     </div>
                     <!-- phone no -->
                     <div class="form-group has-feedback">
-                      <input type="text" name="phnumber" id="phnumber" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="10" maxlength="10" class="form-control" placeholder="phone number" value="" data-error="Invalid Phone Number!" required>
+                      <input type="text" name="phnumber" id="phnumber" tabindex="1" pattern="^[0-9]{1,}$" data-minlength="10" maxlength="10" class="form-control" placeholder="phone number" value="" data-error="Invalid Phone Number!" ng-model="phnumber" required>
                       <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                       <div class="help-block with-errors"></div>
                     </div>
                     <!-- password -->
                     <div class="form-group has-feedback">
-                      <input type="password" name="password" data-minlength="6" id="password" tabindex="1" class="form-control" placeholder="password" value="" required>
+                      <input type="password" name="password" data-minlength="6" id="password" tabindex="1" class="form-control" placeholder="password" value="" ng-model="password" required>
                       <span class="glyphicon form-control-feedback"></span>
                       <div class="help-block with-errors"></div>
                     </div>
                     <!-- confirm password -->
                     <div class="form-group has-feedback">
-                      <input type="password" name="confirm_password" id="confirm-password" tabindex="1" class="form-control" placeholder="confirm password" value="" data-match="#password" data-match-error="Whoops!, password does not match." required>
+                      <input type="password" name="confirm_password" id="confirm-password" tabindex="1" class="form-control" placeholder="confirm password" value="" data-match="#password" data-match-error="Whoops!, password does not match." ng-model="confirm_password" required>
                       <span class="glyphicon form-control-feedback"></span>
                       <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
                       <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">
-                          <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                          <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now" ng-disabled="registerForm.$invalid" ng-click="register()">
                         </div>
                       </div>
                     </div>
