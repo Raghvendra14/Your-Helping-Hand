@@ -16,20 +16,17 @@ module.exports = BaseController.extend({
 					req.statusMessage = false
 					return next()
 				} else if (isErrorOccured === false) {
-					console.log('Updation of Status completed.')
 					var scheduleId = shortId.generate()
 					self.insertAppointmentData(req, selectedEmpId, scheduleId, function (isValueNotInserted) {
 						if (isValueNotInserted === true) {
 							req.statusMessage = false
 							return next()
 						} else if (isValueNotInserted === false) {
-							console.log('Appointment Employee Data written.')
 							self.insertUserAppHistory(req, selectedEmpId, scheduleId, function (isUserAppValueInserted) {
 								if (isUserAppValueInserted === true) {
 									req.statusMessage = false
 									return next()
 								} else if (isUserAppValueInserted === false) {
-									console.log('Appointment User data written.')
 									req.scheduleId = scheduleId
 									return next()
 								}
@@ -75,7 +72,6 @@ module.exports = BaseController.extend({
 				}
 
 				if (data.length >= 1) {
-					//TODO: add the data to the existing user document
 					model.appendAppointmentDetails(function (err, result) {
 						if (err) {
 							callback(true)

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    
     <title>Confirmation</title>
     <link href="https://fonts.googleapis.com/css?family=Amita|Sahitya" rel="stylesheet">
     <!-- Bootstrap -->
@@ -35,13 +35,6 @@
         float: none;
       }
     </style>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -85,12 +78,12 @@
             <div class="card-block">
               <h3 class="card-title">Schedule Confirmation</h3>
                 <!--Display the confirmation info- it includes type of service, description, date, time -->
-              <p class="card-text"><!--Name-->{{userfullname}}</p>
-              <p class="card-text"><!--Address-->{{userAddress}}</p>
-              <p class="card-text"><!--Pincode-->{{userPincode}}</p>
-              <p class="card-text"><!--Phone number-->{{userPhnumber}}</p>
-              <p class="card-text"><!--Date and Time-->{{time}}</p> 
-              <p class="card-text"><!-- Schedule ID(known only to the user)-->{{scheduleId}}</p>
+              <p class="card-text"><!--Name-->Name: {{userfullname}}</p>
+              <p class="card-text"><!--Address-->Address: {{userAddress}}</p>
+              <p class="card-text"><!--Pincode-->pincode: {{userPincode}}</p>
+              <p class="card-text"><!--Phone number-->Phn No.: {{userPhnumber}}</p>
+              <p class="card-text"><!--Date and Time-->Date and Time: {{time}}</p> 
+              <p class="card-text"><!-- Schedule ID(known only to the user)-->Sch ID: {{scheduleId}}</p>
             </div>
           </div>
         </div>
@@ -107,10 +100,10 @@
             <div class="card-block">
               <h3 class="card-title">Handyman at service</h3>
                 <!--Display the handyman info- it includes name, service, phn number -->
-              <p class="card-text"><!-- Name of handyman-->{{empname}}</p>
-              <p class="card-text"><!-- phn number of the handyman-->{{empPhnumber}}</p>
+              <p class="card-text"><!-- Name of handyman-->Name: {{empname}}</p>
+              <p class="card-text"><!-- phn number of the handyman-->Phn No.: {{empPhnumber}}</p>
               <p class="card-text"><!-- payment mode -->{{paymentMode}}</p>
-              <p class="card-text"><!--Service-->{{empCategory}}</p>
+              <p class="card-text"><!--Service-->Service: {{empCategory}}</p>
               <p class="card-text">{{description}}<!-- Problem Description --></p>
             </div>
           </div>

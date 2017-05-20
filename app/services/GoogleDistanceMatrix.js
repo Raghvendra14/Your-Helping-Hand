@@ -1,5 +1,5 @@
 var googleMapsClient = require('@google/maps').createClient({
-	key: 'AIzaSyC-AtHm2DlQhAkgJhW2Fg5ml3U7l0GuznI'
+	key: 'Enter your google maps API key here'
 })
 
 module.exports = { 

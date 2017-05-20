@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    
     <title>LOGIN</title>
     <link href="https://fonts.googleapis.com/css?family=Amita|Sahitya" rel="stylesheet">
     <!-- Bootstrap -->
@@ -187,14 +187,12 @@
     </div>
 
      <!-- FOOTER -->
-    <div style ="background: black; border-color: black; " class="navbar navbar-inverse navbar-fixed-bottom">
-      <div class="container">
-        <div class="navbar-text pull-left">
-          <p>copyright YourHelpingHand 2016</p>
+    <nav style="background-color: black;" class="navbar navbar-fixed-bottom">
+      <div class="container-fluid">
+        <div style="color: white;" class="navbar-text pull-left">
+          <p>copyright YourHelpingHand 2017</p>
         </div>  
       </div>
-    </div>
-
-
+    </nav>
   </body>
 </html>

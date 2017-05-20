@@ -26,7 +26,6 @@ module.exports = BaseController.extend({
 							req.statusMessage = isUserLocationNotAvailable
 							return next()
 						} else if (userLocation!== null) {
-							console.log(userLocation)
 							var userFullLoc = userLocation[0].address + ', ' + userLocation[0].pincode
 							var promises = data.map(function (list) {
 								return new Promise(function(resolve, reject) {
@@ -35,8 +34,6 @@ module.exports = BaseController.extend({
 											req.statusMessage = isEmpLocNotAvailable
 											return next()
 										} else if (employeeLocation !== null) {
-											console.log('Returned location value: \n')
-											console.log(employeeLocation)
 											var empFullLoc = employeeLocation[0].address + ', ' + employeeLocation[0].city + ', ' + employeeLocation[0].country + ', ' + employeeLocation[0].pincode
 											googleMapsWS.getDistance(userFullLoc, empFullLoc, function (response) {
 												if (response === null) {
@@ -44,8 +41,6 @@ module.exports = BaseController.extend({
 													return reject()
 												} else {
 													var distance = parseFloat(response.rows[0].elements[0].distance.text.toString().split(' ')[0])
-													console.log('The distance in kilometers are:  ')
-													console.log(distance)
 													var returnObject = {
 														empId: employeeLocation[0].empId,
 														distance: distance
@@ -59,8 +54,6 @@ module.exports = BaseController.extend({
 							})
 							Promise.all(promises)
 							.then(function(distanceArray) {
-								console.log('Distance Array: \n')
-								console.log(distanceArray)
 								var smallestDistance = 15.0 // distance should be less than 15 kilometers for any employee to get assigned the task
 								var bestAvailableEmpId = null // Best Employee Id
 								for (var object of distanceArray) {
@@ -70,10 +63,8 @@ module.exports = BaseController.extend({
 									}
 								}
 								if (bestAvailableEmpId === null) {
-									console.log('Sorry, no handyman available nearby.')
 									req.statusMessage = true
 								} else {
-									console.log('Best Id with minimum distance of ' + smallestDistance.toString() + ' is ' + bestAvailableEmpId)
 									req.empId = bestAvailableEmpId
 									req.userAddress = userLocation[0].address
 									req.pincode = userLocation[0].pincode
@@ -85,7 +76,6 @@ module.exports = BaseController.extend({
 				}	
 			}) 
 		} else {
-			// self.renderProfile(false, res, self)
 			req.statusMessage = false
 			return next()
 		}

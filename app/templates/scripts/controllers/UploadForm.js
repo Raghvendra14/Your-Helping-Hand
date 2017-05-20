@@ -35,13 +35,11 @@ angular.module('FormUpload', ['ngFileUpload']).controller('formUploadCntrl', ['$
               $scope.success = response.data.success
               $scope.err = ''
               $scope.picFile = ''
-              console.log($scope.success)
             }
           }, function (response) {
             if (response.status == 500) {
               $scope.success = ''
               $scope.err = response.data.err
-              console.log($scope.err)
             }
           })
         }
